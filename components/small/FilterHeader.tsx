@@ -1,8 +1,8 @@
 
 const FilterSection = () => {
   return (
-    <section className="container">
-      <div className="mt-20 flex justify-between  items-center lg:flex-row flex-col w-full">
+    <section className="container p-4 md:p-0">
+      <div className="mt-20 flex justify-between  md:text-start text-center items-center lg:flex-row flex-col w-full">
         <div>
           <h1 className="text-2xl jon text-indigo-950 font-bold">
             Ecommerce Acceories & Fashion item

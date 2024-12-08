@@ -10,10 +10,10 @@ const page = () => {
     <main >
       <SubHero title="Shop List" />
       <FilterSection />
-      <section className="grid grid-cols-1 p-4 md:p-0 container sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center mx-10 mt-16">
+      <section className="grid grid-cols-1 p-4 ms:p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center container mt-16">
         {products.map((item, index) => (
-          <Link  href={`/product/${item.id}`}  key={index}>
-            <div className="bg-slate-100  max-w-[270px] h-[280px] flex justify-center items-center">
+          <Link href={`/pagesPage/${item.id}`} key={index}>
+            <div className="bg-slate-100 w-[250px] h-[280px] flex justify-center items-center">
               <Image
                 src={item.img}
                 alt={item.name}
