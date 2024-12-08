@@ -12,14 +12,14 @@ const page = () => {
       <FilterSection />
       <section className="grid grid-cols-1 p-4 ms:p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center container mt-16">
         {products.map((item, index) => (
-          <Link href={`/pagesPage/${item.id}`} key={index}>
+          <Link href={`/pagesPage/${item.id}`} key={index} className="h-[400px]">
             <div className="bg-slate-100 w-[250px] h-[280px] flex justify-center items-center">
               <Image
                 src={item.img}
                 alt={item.name}
-                width={201}
-                height={201}
-                className="w-auto h-auto"
+                width={150}
+                height={150}
+                className=""
               />
             </div>
             <div className="flex justify-center items-center flex-col">
