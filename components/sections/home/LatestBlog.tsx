@@ -41,7 +41,7 @@ const imges = [
 const LatestBlog = () => {
   return (
     <section className="mt-20 container">
-      <h1 className="text-4xl text-center text-1 font-bold text-indigo-950">
+      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
         Latest Blog
       </h1>
       <div className="flex justify-center items-center gap-8 mt-14 md:flex-row flex-col">
@@ -61,17 +61,17 @@ const LatestBlog = () => {
               <div className="flex justify-between items-center">
                 <div className="flex items-center mt-4 gap-x-2 w-full">
                   {item.penImg}
-                  <p className="text-1 text-indigo-950">{item.name}</p>
+                  <p className="jon text-indigo-950">{item.name}</p>
                 </div>
                 <div className="flex items-center mt-4 gap-x-2 w-full">
                   {item.docImg}
-                  <p className="text-1 text-indigo-950">{item.calender}</p>
+                  <p className="jon text-indigo-950">{item.calender}</p>
                 </div>
               </div>
               <h3
                 className={`${
                   item.id === 2 ? "text-pink-500" : "text-indigo-950"
-                } mt-5 text-lg font-bold text-1 `}
+                } mt-5 text-lg font-bold jon `}
               >
                 {item.title}
               </h3>

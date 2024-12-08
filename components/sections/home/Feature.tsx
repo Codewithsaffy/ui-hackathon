@@ -5,7 +5,7 @@ import FeatureCard from "../../cards/FeatureCard";
 const Feature = () => {
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">
-      <h2 className="text-[#151875] text-[42px] font-bold">Featured Products</h2>
+      <h2 className="text-[#151875] jon text-[42px] font-bold">Featured Products</h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 place-items-center w-full  ">
         {featuredProducts.map((product, index) => (

@@ -31,7 +31,7 @@ const Footer = () => {
     <footer className="bg-slate-200 mt-20 pb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-self-start pt-20 gap-10 lg:gap-0 px-8">
         <div className="lg:w-full lg:ml-10">
-          <h1 className="text-4xl text-1 font-bold text-indigo-950">Hekto</h1>
+          <h1 className="text-4xl jon font-bold text-indigo-950">Hekto</h1>
           <div className="flex items-center my-8">
             <input
               type="text"
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
         {categories.map((item, index) => (
           <div className="flex flex-col lg:ml-24" key={index}>
-            <h1 className="text-1 text-3xl font-bold text-indigo-950">
+            <h1 className="jon text-3xl font-bold text-indigo-950">
               {item.title}
             </h1>
             <div className="text-gray-500 space-y-3 mt-8 cursor-pointer w-full">

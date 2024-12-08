@@ -5,7 +5,7 @@ import RofexCard from "../../cards/Rofex";
 const Rofex = () => {
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">
-      <h2 className="text-[#151875] text-[42px] font-bold">
+      <h2 className="text-[#151875] jon text-[42px] font-bold">
       What Shopex Offer!
       </h2>
 

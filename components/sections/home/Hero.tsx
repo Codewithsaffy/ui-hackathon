@@ -33,7 +33,7 @@ export default function Hero() {
             {slides.sliders[0].subtitle}
           </p>
 
-          <h1 className="text-5xl jon font-extrabold">
+          <h1 className=" text-3xl font-bold sm:text-5xl jon sm:font-extrabold">
             {slides.sliders[0].title}
           </h1>
           <p className="text-[#8A8FB9]">{slides.sliders[0].description}</p>

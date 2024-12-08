@@ -42,7 +42,7 @@ const rightImg = [
 const TrendingProduct = () => {
   return (
     <section className="mt-20 container">
-      <h1 className="text-4xl text-center text-1 font-bold text-indigo-950">
+      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
         Trending Products
       </h1>
       <div className="flex justify-center items-center gap-10 flex-col md:flex-row">
@@ -53,7 +53,7 @@ const TrendingProduct = () => {
           >
             <Image src={item.img} alt={item.name} width={247} height={244} />
             <p className="lato font-bold text-indigo-950 my-4">{item.name}</p>
-            <div className="flex justify-center items-center gap-x-2 text-1">
+            <div className="flex justify-center items-center gap-x-2 jon">
               <p className="text-indigo-950 text-sm">{item.price}</p>
               <p className="text-slate-300 text-[12px] line-through">
                 {item.prevPrice}
@@ -62,22 +62,22 @@ const TrendingProduct = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center items-center mt-6 lg:flex-row flex-col">
+      <div className="flex justify-between items-center gap-2 mt-6 lg:flex-row flex-col">
         <Image
           src={"/trendingProducts/img-bottom-1.png"}
           alt="bottom-img"
           width={420}
           height={280}
-          className="w-auto h-[320px] cursor-pointer hover:scale-110 transition-all"
+          className=" h-[250px] w-[360px] cursor-pointer hover:scale-110 transition-all"
         />
         <Image
           src={"/trendingProducts/img-bottom-2.png"}
           alt="bottom-img"
           width={420}
           height={280}
-          className="w-auto h-[320px] cursor-pointer hover:scale-110 transition-all"
+          className=" h-[250px] w-[360px] cursor-pointer hover:scale-110 transition-all"
         />
-        <div className="flex items-center justify-center flex-col gap-y-3 mb-3">
+        <div className="flex items-center justify-center flex-col gap-y-3">
           {rightImg.map((item, index) => (
             <Image
               src={item.url}

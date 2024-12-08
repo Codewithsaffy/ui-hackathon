@@ -2,6 +2,7 @@ import FilterSection from "@/components/small/FilterHeader";
 import SubHero from "@/components/small/SubHero";
 import { Heart, ShoppingCart, ZoomIn } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 
 const products = [
@@ -62,7 +63,7 @@ const Page = () => {
       <FilterSection />
       <div className="space-y-10 mt-20 container">
         {products.map((item, index) => (
-          <div
+          <Link href={"/product/1"}
             className="flex justify-start gap-y-14 p-4 gap-x-8 shadow-lg items-center"
             key={index}
           >
@@ -77,7 +78,7 @@ const Page = () => {
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-x-4">
-                <h1 className="text-1 font-bold text-lg text-indigo-900">
+                <h1 className="jon font-bold text-lg text-indigo-900">
                   {item.name}
                 </h1>
                 <div>
@@ -115,7 +116,7 @@ const Page = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="flex justify-center items-center mt-14">

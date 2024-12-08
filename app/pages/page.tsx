@@ -7,10 +7,10 @@ import React from "react";
 
 const page = () => {
   return (
-    <main>
+    <main >
       <SubHero title="Shop List" />
       <FilterSection />
-      <section className="grid grid-cols-1 container sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-self-center mx-10 mt-16">
+      <section className="grid grid-cols-1 p-4 md:p-0 container sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 place-items-center mx-10 mt-16">
         {products.map((item, index) => (
           <Link  href={`/product/${item.id}`}  key={index}>
             <div className="bg-slate-100  max-w-[270px] h-[280px] flex justify-center items-center">
@@ -23,7 +23,7 @@ const page = () => {
               />
             </div>
             <div className="flex justify-center items-center flex-col">
-              <h1 className="text-lg text-center font-bold text-1 text-indigo-950 mt-4">
+              <h1 className="text-lg text-center font-bold jon text-indigo-950 mt-4">
                 {item.name}
               </h1>
               <Image
@@ -33,7 +33,7 @@ const page = () => {
                 height={10}
                 className="mt-2"
               />
-              <div className="flex justify-center gap-x-3 mt-3 text-1 text-sm">
+              <div className="flex justify-center gap-x-3 mt-3 jon text-sm">
                 <p className="text-indigo-900">{item.price}</p>
                 <p className="text-red-600 line-through">{item.prevPrice}</p>
               </div>

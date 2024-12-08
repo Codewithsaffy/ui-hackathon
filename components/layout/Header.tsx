@@ -14,7 +14,7 @@ export function Header() {
   return (
     <header className="border-b relative">
       {/* Topbar */}
-      <div className="bg-violet-600 text-white py-2">
+      <div className="bg-violet-600 jon text-white py-2">
         <div className="container mx-auto flex justify-between items-center text-sm px-4 lg:px-0">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">

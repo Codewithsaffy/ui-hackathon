@@ -1,10 +1,11 @@
 import { ILatestProduct } from "@/data/latestCard";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const LatestCard = ({ CardData, second }: { CardData: ILatestProduct, second: boolean }) => {
   return (
-    <div className="h-[306px] max-w-[350px] w-full flex flex-col gap-2">
+    <Link href={"/product/1"} className="h-[306px] jon max-w-[350px] w-full flex flex-col gap-2">
       <div className={`h-[270px] flex items-center justify-center ${second ? "bg-white" : "bg-[#F7F7F7]"} p-1`}>
         <Image src={CardData.image} alt="" width={245} height={245} />
       </div>
@@ -18,7 +19,7 @@ const LatestCard = ({ CardData, second }: { CardData: ILatestProduct, second: bo
           
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

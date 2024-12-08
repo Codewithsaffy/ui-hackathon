@@ -10,8 +10,8 @@ const data = [
 
 const Unique = () => {
   return (
-    <section className="bg-[#F1F0FF] py-12 md:py-16">
-      <div className="container flex flex-col md:flex-row items-center justify-center gap-12 ">
+    <section className="bg-[#F1F0FF] px-4 py-12 md:py-16">
+      <div className="container flex  flex-col md:flex-row items-center justify-center gap-12 ">
         {/* Left Section: Images */}
         <div className="relative">
           <Image
@@ -31,7 +31,7 @@ const Unique = () => {
         </div>
         {/* Right Section: Content */}
         <div className="text-center md:text-left">
-          <h2 className="text-[#151875] text-[24px] md:text-[28px] lg:text-[35px] font-extrabold leading-tight">
+          <h2 className="text-[#151875] jon text-[24px] md:text-[28px] lg:text-[35px] font-extrabold leading-tight">
             Unique Features Of Latest & Trending Products
           </h2>
           <div className="mt-6 space-y-4">

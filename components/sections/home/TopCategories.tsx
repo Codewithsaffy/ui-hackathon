@@ -18,7 +18,7 @@ const topProducts = [
 const TopCategories = () => {
   return (
     <section className="mt-20 container">
-      <h1 className="text-4xl text-center text-1 font-bold text-indigo-950">
+      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
         Top Categories
       </h1>
       <div className="flex flex-col lg:flex-row justify-center items-center mt-10">

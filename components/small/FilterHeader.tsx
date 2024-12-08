@@ -4,7 +4,7 @@ const FilterSection = () => {
     <section className="container">
       <div className="mt-20 flex justify-between  items-center lg:flex-row flex-col w-full">
         <div>
-          <h1 className="text-2xl text-1 text-indigo-950 font-bold">
+          <h1 className="text-2xl jon text-indigo-950 font-bold">
             Ecommerce Acceories & Fashion item
           </h1>
           <p className="text-sm text-gray-400 lato mt-2">

@@ -23,7 +23,7 @@ const checktext = [
 const Discount = () => {
   return (
     <section className="mt-20 container">
-      <h1 className="text-4xl text-center text-1 font-bold text-indigo-950">
+      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
         Discount Items
       </h1>
       <div className="mt-10 lato flex justify-center items-center gap-8 text-[18px] md:flex-row flex-col">
@@ -39,10 +39,10 @@ const Discount = () => {
       </div>
       <div className="flex justify-center items-center mt-10 gap-10 lg:flex-row flex-col text-center lg:text-start">
         <div>
-          <h1 className="text-indigo-950 lg:text-4xl text-3xl font-bold text-1">
+          <h1 className="text-indigo-950 lg:text-4xl text-3xl font-bold jon">
             20% Discount Of All Products
           </h1>
-          <h2 className="text-xl text-pink-400 text-1 mt-4">
+          <h2 className="text-xl text-pink-400 jon mt-4">
             Eams Sofa Compact
           </h2>
           <p className="text-slate-300 lato text-[17px] mt-4 text-wrap">
@@ -60,7 +60,7 @@ const Discount = () => {
               </div>
             ))}
           </div>
-          <p className="flex justify-center items-center bg-pink-500 w-[200px] h-[57px] text-white text-1 mt-8 mx-auto lg:mx-0">
+          <p className="flex justify-center items-center bg-pink-500 w-[200px] h-[57px] text-white jon mt-8 mx-auto lg:mx-0">
             Shop Now
           </p>
         </div>

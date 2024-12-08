@@ -146,7 +146,7 @@ const page = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </section>
-      <div className="mt-20 bg-slate-100 w-full lg:px-20 px-4 text-1 py-20 ">
+      <div className="mt-20 bg-slate-100 w-full lg:px-20 px-4 jon py-20 ">
         <div className="font-bold text-2xl flex justify-start items-center text-indigo-900 gap-x-20 lg:flex-row flex-col gap-y-8">
           <h1 className="underline cursor-pointer">Description</h1>
           <h1 className="cursor-pointer">Additional Info</h1>
@@ -195,7 +195,7 @@ const page = ({ params }: { params: { id: string } }) => {
         </p>
       </div>
       <div className="mt-20">
-        <h1 className="text-4xl text-center text-1 font-bold text-indigo-950">
+        <h1 className="text-4xl text-center jon font-bold text-indigo-950">
           Related Products
         </h1>
         <div className="flex justify-center items-center gap-7 mt-10 lg:flex-row flex-col">
@@ -206,7 +206,7 @@ const page = ({ params }: { params: { id: string } }) => {
             >
               <Image src={item.img} alt={item.name} width={270} height={340} />
               <div className="flex justify-between items-center">
-                <h1 className="text-1 font-semibold text-indigo-900 my-4">
+                <h1 className="jon font-semibold text-indigo-900 my-4">
                   {item.name}
                 </h1>
                 <div className="flex gap-x-1">
@@ -226,7 +226,7 @@ const page = ({ params }: { params: { id: string } }) => {
                   ))}
                 </div>
               </div>
-              <p className="text-1 text-indigo-900">{item.price}</p>
+              <p className="jon text-indigo-900">{item.price}</p>
             </div>
           ))}
         </div>
