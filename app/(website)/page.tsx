@@ -7,6 +7,7 @@ import Rofex from "@/components/sections/home/Rofex";
 import TopCategories from "@/components/sections/home/TopCategories";
 import TrendingProduct from "@/components/sections/home/TrendingProduct";
 import Unique from "@/components/sections/home/Unique";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
@@ -14,12 +15,12 @@ export default function Home() {
       <Hero />
       <Feature />
       <Leatest />
-      <Rofex/>
-      <Unique/>
-      <TrendingProduct/>
-      <Discount/>
-      <TopCategories/>
-      <LatestBlog/>
+      <Rofex />
+      <Unique />
+      <TrendingProduct />
+      <Discount />
+      <TopCategories />
+      <LatestBlog />
     </main>
   );
 }

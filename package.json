@@ -6,19 +6,29 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.68.3",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.4.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
     "next": "14.2.20",
+    "next-sanity": "^9.8.30",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.4.0",
+    "sanity": "^3.68.3",
+    "stripe": "^17.5.0",
+    "styled-components": "^6.1.13",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "use-shopping-cart": "^3.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

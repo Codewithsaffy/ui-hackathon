@@ -1,5 +1,6 @@
 import SubHero from "@/components/small/SubHero";
-import { products } from "@/data/products";
+import { Product } from "@/lib/helper/getProduct";
+import { client } from "@/sanity/lib/client";
 import { ArrowRight, Heart, Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -36,12 +37,18 @@ const relatedProducts = [
   },
 ];
 
-const page = ({ params }: { params: { id: string } }) => {
-  const id = Number(params.id);
-  const product = products.find((item) => item.id === id);
-  if (!product) {
-    return <div>Product not found</div>;
-  }
+const page = async ({ params }: { params: { id: string } }) => {
+  const id = params.id
+  const res:Product[] = await client.fetch(`*[_type == "product" && _id == "${id}"]`);
+  const product = res[0];
+  // if (!product) {
+  //   return (
+  //     <main>
+  //       <h1>Product not found</h1>
+  //     </main>
+  //   );
+    
+  // }
 
   return (
     <main>
@@ -61,7 +68,7 @@ const page = ({ params }: { params: { id: string } }) => {
                     height={155}
                     width={155}
                     className="rounded-md object-cover"
-                    src={product.img}
+                    src={product.image}
                     alt={`Thumbnail ${index + 1}`}
                   />
                 </div>
@@ -72,7 +79,7 @@ const page = ({ params }: { params: { id: string } }) => {
               className="w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] object-cover"
               height={500}
               width={500}
-              src={product.img}
+              src={product.image}
               alt="Main Product Image"
             />
           </div>
@@ -97,15 +104,21 @@ const page = ({ params }: { params: { id: string } }) => {
             <p className="ml-2 text-sm lg:text-base">{"(5)"}</p>
           </div>
           <div className="flex items-center gap-2">
-            <p className="text-[14px] lg:text-base text-[#151875]">$79</p>
-            <del className="text-[12px] lg:text-sm text-[#FB2448]">$99</del>
+            <p className="text-[14px] lg:text-base text-[#151875]">${product.price}</p>
+            {
+              product.prevPrice && (
+                <del className="text-[12px] lg:text-sm text-[#FB2448]">${product.prevPrice}</del>
+              )
+            }
+            
           </div>
           <p className="text-[#0D134E] font-semibold text-sm lg:text-base">
             Colors
           </p>
           <p className="text-[#9295AA] text-sm lg:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            tellus porttitor purus, et volutpat sit.
+           {
+            product.description ? product.description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eu eget feugiat habitasse nec, bibendum condimentum."
+           }
           </p>
           <div className="flex items-center gap-4">
             <button className="text-[#151875] bg-gray-200 px-4 py-2 rounded-md text-sm lg:text-base">

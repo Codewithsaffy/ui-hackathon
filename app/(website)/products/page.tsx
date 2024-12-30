@@ -1,75 +1,34 @@
 import FilterSection from "@/components/small/FilterHeader";
 import SubHero from "@/components/small/SubHero";
+import { getProduct } from "@/lib/helper/getProduct";
 import { Heart, ShoppingCart, ZoomIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { IoMdStar } from "react-icons/io";
 
-const products = [
-  {
-    img: "/productPage/img-1.png",
-    name: "Accumsan tincidunt",
-    price: "$26.00",
-    prevPrice: "$52.00",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    icons: [
-      <ShoppingCart key={1} size={20} />,
-      <Heart key={2} size={20} />,
-      <ZoomIn key={3} size={20} />,
-    ],
-  },
-  {
-    img: "/productPage/img-2.png",
-    name: "In nulla",
-    price: "$26.00",
-    prevPrice: "$52.00",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    icons: [
-      <ShoppingCart key={1} size={20} />,
-      <Heart key={2} size={20} />,
-      <ZoomIn key={3} size={20} />,
-    ],
-  },
-  {
-    img: "/productPage/img-3.png",
-    name: "Vel sem",
-    price: "$26.00",
-    prevPrice: "$52.00",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    icons: [
-      <ShoppingCart key={1} size={20} />,
-      <Heart key={2} size={20} />,
-      <ZoomIn key={3} size={20} />,
-    ],
-  },
-  {
-    img: "/productPage/img-4.png",
-    name: "Portitor cum",
-    price: "$26.00",
-    prevPrice: "$52.00",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magna in est adipiscing in phasellus non in justo.",
-    icons: [
-      <ShoppingCart key={1} size={20} />,
-      <Heart key={2} size={20} />,
-      <ZoomIn key={3} size={20} />,
-    ],
-  },
+const icons = [
+  <ShoppingCart key={1} size={20} />,
+  <Heart key={2} size={20} />,
+  <ZoomIn key={3} size={20} />,
 ];
 
-const Page = () => {
+
+const Page = async() => {
+  const cardData = await getProduct("productPage")
   return (
     <main>
       <SubHero title="Shop List" />
       <FilterSection />
       <div className="space-y-10 mt-20 container">
-        {products.map((item, index) => (
-          <Link href={"/product/1"}
+        {cardData.map((item, index) => (
+          <Link
+            href={`/product/${item._id}`}
             className="flex justify-start gap-y-14 p-4 gap-x-8 shadow-lg items-center"
             key={index}
           >
             <div>
               <Image
-                src={item.img}
+                src={item.image}
                 alt={item.name}
                 width={300}
                 height={300}
@@ -92,9 +51,9 @@ const Page = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <p className="text-[14px] text-[#151875]">{item.price}</p>
+                <p className="text-[14px] text-[#151875]">${item.price}.00</p>
                 <del className="text-[12px] text-[#FB2448]">
-                  {item.prevPrice}
+                 ${item.prevPrice}.00
                 </del>
                 <div className="flex items-center">
                   <IoMdStar className="text-[#FFC416]" />
@@ -104,9 +63,9 @@ const Page = () => {
                   <IoMdStar className="text-[#B2B2B2]" />
                 </div>
               </div>
-              <p className="text-[#9295AA] max-w-xl">{item.text}</p>
+              <p className="text-[#9295AA] max-w-xl">{item.description}</p>
               <div className="flex gap-4 mt-3">
-                {item.icons.map((icon, idx) => (
+                {icons.map((icon, idx) => (
                   <div
                     key={idx}
                     className="p-2  rounded-full cursor-pointer shadow-lg w-[34px] h-[34px] flex justify-center items-center"

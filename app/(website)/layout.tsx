@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
+import { Header } from "@/components/layout/Header";
 import { Josefin_Sans, Lato } from "next/font/google";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,8 +29,9 @@ export default function RootLayout({
       <body
         className={`${josefin.variable} ${lato.variable} ${lato.className} overflow-x-hidden antialiased`}
       >
-
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
