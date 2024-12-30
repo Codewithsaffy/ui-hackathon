@@ -6,6 +6,6 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: true, // set to true to fetch from edge cache
   token: process.env.SANITY_API_TOKEN,
 })
