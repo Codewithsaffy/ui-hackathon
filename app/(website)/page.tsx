@@ -7,17 +7,18 @@ import Rofex from "@/components/sections/home/Rofex";
 import TopCategories from "@/components/sections/home/TopCategories";
 import TrendingProduct from "@/components/sections/home/TrendingProduct";
 import Unique from "@/components/sections/home/Unique";
-import { Suspense } from "react";
+import { getProduct } from "@/lib/helper/getProduct";
 
-export default function Home() {
+export default async function Home() {
+  const [featured, latest, trending] = await Promise.all([getProduct("featured"), getProduct("latest"), getProduct("trending")]);
   return (
     <main className="overflow-x-hidden">
       <Hero />
-      <Feature />
-      <Leatest />
+      <Feature cardData={featured}/>
+      <Leatest cardData={latest} />
       <Rofex />
       <Unique />
-      <TrendingProduct />
+      <TrendingProduct cardData={trending} />
       <Discount />
       <TopCategories />
       <LatestBlog />

@@ -41,6 +41,6 @@ export const POST = async (req: NextRequest) => {
     const response = await client.create(product)
     return NextResponse.json(response)
   } catch (error) {
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return new NextResponse(error +"Internal Server Error", { status: 500 });
   }
 };

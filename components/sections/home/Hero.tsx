@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import PinkButton from "../../buttons/PinkButton";
 
 const slides = {
@@ -22,10 +23,12 @@ export default function Hero() {
     <section className="lg:h-[calc(100vh-111px)] bg-[#F2F0FF] p-10 md:p-0">
         
       <div className="container relative   h-full lg:flex-row flex items-center flex-col  justify-between">
-      <img
-          className="absolute hidden md:block top-0 -left-52 h-[250px]"
+      <Image
+          className="absolute hidden md:block top-0 object-contain -left-52 h-[250px]"
           src={slides.absolutImage}
           alt="light"
+          height={250}
+          width={250}
         />
 
         <div className="flex flex-col gap-4 lg:text-start text-center">
@@ -49,7 +52,7 @@ export default function Hero() {
             <p>off</p> */}
           </div>
           <div className="w-[300px] md:w-[400px]  md:h-[400px]  translate-y-6 -translate-x-10 rounded-full h-[300px] bg-[#ECD2FA59] ">
-            <img src={slides.sliders[0].image} className="z-20 " alt="hello" />
+            <Image height={400} width={400} src={slides.sliders[0].image} className="z-20 " alt="hello" />
           </div>
         </div>
         <div className="flex items-center absolute bottom-10 w-full justify-center gap-4">

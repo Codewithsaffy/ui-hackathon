@@ -1,9 +1,8 @@
 import React from "react";
 import FeatureCard from "../../cards/FeatureCard";
-import { getProduct } from "@/lib/helper/getProduct";
+import { Product } from "@/lib/helper/getProduct";
 
-const Feature = async () => {
-  const cardData = await getProduct("featured");
+const Feature =  ({ cardData }: { cardData: Product[] }) => {
 
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">

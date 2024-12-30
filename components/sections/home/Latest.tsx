@@ -1,10 +1,9 @@
 import React from "react";
 import LatestCard from "../../cards/LatestCard";
 import LatestBar from "../../small/LatestBar";
-import { getProduct } from "@/lib/helper/getProduct";
+import {  Product } from "@/lib/helper/getProduct";
 
-const Leatest = async () => {
-  const cardData = await getProduct("latest")
+const Leatest =  ({ cardData }: { cardData: Product[]}) => {
   
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">

@@ -1,4 +1,4 @@
-import { getProduct } from "@/lib/helper/getProduct";
+import {  Product } from "@/lib/helper/getProduct";
 import Image from "next/image";
 
 const rightImg = [
@@ -13,8 +13,7 @@ const rightImg = [
   },
 ];
 
-const TrendingProduct = async () => {
-  const cardData = await getProduct("trending");
+const TrendingProduct =  ({cardData}: {cardData: Product[]}) => {
   return (
     <section className="mt-20 container">
       <h1 className="text-4xl text-center jon font-bold text-indigo-950">
