@@ -1,9 +1,15 @@
+"use client";
+import CheckoutButton from "@/components/buttons/CheckoutButton";
 import SubHero from "@/components/small/SubHero";
 import Image from "next/image";
 import React from "react";
-import { cartData } from "@/data/cartData";
+// import { cartData } from "@/data/cartData";
+import { useShoppingCart } from "use-shopping-cart";
 
-const page = () => {
+const CartPage = () => {
+  const {cartDetails, clearCart , totalPrice, incrementItem, decrementItem, removeItem} = useShoppingCart()
+  console.log(cartDetails)
+
   return (
     <main>
       <SubHero title="Shopping Cart" />
@@ -28,29 +34,32 @@ const page = () => {
 
           {/* Table Rows */}
           <div className="mt-6 space-y-4">
-            {cartData.map((item, index) => (
+         
+
+            {Object.values(cartDetails ?? {}).map((item, index) => (
               <div
                 key={index}
                 className="grid grid-cols-12 items-center gap-4 border-b pb-4"
               >
                 {/* Product Details */}
-                <div className="col-span-6 flex gap-4 items-center">
+                <div className="col-span-6 relative flex gap-4 items-center">
                   <Image
                     className="h-[60px] w-[60px] md:h-[87px] md:w-[83px] rounded-md"
-                    src={item.image}
+                    src={item.image as string}
                     alt={item.product}
                     width={85}
                     height={85}
                   />
+                  <button onClick={() => removeItem(item.id)} className="absolute top-0 left-0 bg-black leading-none text-white w-3 h-3 md:w-5 md:h-5  rounded-full flex justify-center items-center">x</button>
                   <div>
                     <h4 className="font-semibold text-sm md:text-base text-[#000000]">
                       {item.product}
                     </h4>
                     <p className="text-xs md:text-sm text-[#A1A8C1]">
-                      Color: {item.color}
+                      Color: black
                     </p>
                     <p className="text-xs md:text-sm text-[#A1A8C1]">
-                      Size: {item.size}
+                      Size: XL
                     </p>
                   </div>
                 </div>
@@ -62,20 +71,20 @@ const page = () => {
 
                 {/* Quantity */}
                 <div className="col-span-2 flex justify-center items-center gap-2">
-                  <button className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
+                  <button onClick={() => incrementItem(item.id)} className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
                     +
                   </button>
                   <p className="text-sm md:text-base text-[#000000]">
                     {item.quantity}
                   </p>
-                  <button className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
+                  <button onClick={() => decrementItem(item.id)} className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
                     -
                   </button>
                 </div>
 
                 {/* Total */}
                 <p className="col-span-2 text-center text-xs md:text-sm text-[#000000]">
-                  ${item.total}
+                  ${item.price * item.quantity}
                 </p>
               </div>
             ))}
@@ -83,10 +92,10 @@ const page = () => {
 
           {/* Update and Clear Cart Buttons */}
           <div className="flex flex-wrap justify-between gap-4 mt-6">
-            <button className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
+            <button  className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
               Update Cart
             </button>
-            <button className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
+            <button onClick={() => clearCart()} className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
               Clear Cart
             </button>
           </div>
@@ -104,13 +113,15 @@ const page = () => {
                 <h4 className="text-[#1D3178] text-sm md:text-base font-semibold">
                   Subtotals:
                 </h4>
-                <p className="text-[#15245E]">£219.00</p>
+                <p className="text-[#15245E]">{totalPrice?.toFixed(2)}</p>
               </div>
               <div className="flex justify-between border-b pb-2 border-gray-300">
                 <h4 className="text-[#1D3178] text-sm md:text-base font-semibold">
                   Totals:
                 </h4>
-                <p className="text-[#15245E]">£325.00</p>
+                <p className="text-[#15245E]">
+                  {totalPrice?.toFixed(2)}
+                </p>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-3 h-3 bg-[#19D16F] rounded-full"></div>
@@ -118,9 +129,7 @@ const page = () => {
                   Shipping & taxes calculated at checkout
                 </p>
               </div>
-              <button className="bg-[#19D16F] text-white rounded px-4 py-2 md:py-3">
-                Proceed To Checkout
-              </button>
+              <CheckoutButton/>
             </div>
           </div>
 
@@ -156,4 +165,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CartPage;

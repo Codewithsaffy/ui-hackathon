@@ -15,7 +15,6 @@ export const getProduct = async (
   category: "featured" | "latest" | "trending" | "general" | "productPage"
 ): Promise<Product[]> => {
   const res = await client.fetch(
-    `*[_type == "product" && category == "${category}"]`
-  );
+    `*[_type == "product" && category == "${category}"]`);
   return res;
 };

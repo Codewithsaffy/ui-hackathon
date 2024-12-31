@@ -1,3 +1,4 @@
+import AddToCart from "@/components/buttons/AddToCart";
 import SubHero from "@/components/small/SubHero";
 import { Product } from "@/lib/helper/getProduct";
 import { client } from "@/sanity/lib/client";
@@ -121,9 +122,7 @@ const page = async ({ params }: { params: { id: string } }) => {
            }
           </p>
           <div className="flex items-center gap-4">
-            <button className="text-[#151875] bg-gray-200 px-4 py-2 rounded-md text-sm lg:text-base">
-              Add To Cart
-            </button>
+            <AddToCart product={product} />
             <Heart size={20} />
           </div>
           <p className="text-[#0D134E] font-semibold text-sm lg:text-base">
