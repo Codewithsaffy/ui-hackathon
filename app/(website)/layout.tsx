@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Josefin_Sans, Lato } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import StripeProvider from "@/provider/CartProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,22 +21,25 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${josefin.variable} ${lato.variable} ${lato.className} overflow-x-hidden antialiased`}
-      >
-        <StripeProvider>
-        <Header />
-        {children}
-        <Footer />
-        </StripeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${josefin.variable} ${lato.variable} ${lato.className} overflow-x-hidden antialiased`}
+        >
+          <StripeProvider>
+            <Header />
+            {children}
+            <Footer />
+          </StripeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

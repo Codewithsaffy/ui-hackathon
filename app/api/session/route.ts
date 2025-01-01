@@ -30,8 +30,8 @@ export async function POST(request: NextRequest) {
       },
       quantity: item.quantity,
   })),
-    success_url: `${headers().get("origin")}/success`,
-    cancel_url: `${headers().get("origin")}/cancel`,
+    success_url: `${(await headers()).get("origin")}/success`,
+    cancel_url: `${(await headers()).get("origin")}/cancel`,
   });
   return Response.json({ sessionId: checkoutSession.id });
 }

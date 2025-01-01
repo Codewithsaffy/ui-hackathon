@@ -38,7 +38,8 @@ const relatedProducts = [
   },
 ];
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async (props: { params: Promise<{ id: string }> }) => {
+  const params = await props.params;
   const id = params.id
   const res:Product[] = await client.fetch(`*[_type == "product" && _id == "${id}"]`);
   const product = res[0];
@@ -48,7 +49,7 @@ const page = async ({ params }: { params: { id: string } }) => {
   //       <h1>Product not found</h1>
   //     </main>
   //   );
-    
+
   // }
 
   return (
