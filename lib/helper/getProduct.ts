@@ -11,10 +11,16 @@ export type Product = {
   description: string;
   category: "featured" | "latest" | "trending" | "general" | "productPage";
 };
+
 export const getProduct = async (
   category: "featured" | "latest" | "trending" | "general" | "productPage"
 ): Promise<Product[]> => {
   const res = await client.fetch(
-    `*[_type == "product" && category == "${category}"]`);
+    `*[_type == "product" && category == "${category}"]`, {}, {
+      next:{
+        revalidate:60
+      }
+    });
+    console.log(res)
   return res;
 };

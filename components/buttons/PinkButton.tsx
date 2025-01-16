@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 const PinkButton = ({children}:{children:React.ReactNode}) => {
   return (

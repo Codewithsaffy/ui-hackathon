@@ -71,6 +71,70 @@ export const productType = defineField({
         validation: (Rule) =>
           Rule.required().error('Category is required and must match one of the predefined values'),
       },
+      {
+        name: 'shipment',
+        type: "object",
+        title: 'Shipment',
+        validation: (Rule) => Rule.required().error('Shipment is required'),
+        fields: [
+          {
+            name: 'weight',
+            title: 'Weight',
+            type: 'object',
+            fields: [
+              {
+                name: 'value',
+                title: 'Value',
+                type: 'number',
+                validation: (Rule) => Rule.required().positive(),
+              },
+              {
+                name: 'unit',
+                title: 'Unit',
+                type: 'string',
+                options: {
+                  list: ['ounce', 'pound', 'gram', 'kilogram'],
+                },
+                validation: (Rule) => Rule.required(),
+              },
+            ],
+          },
+          {
+            name: 'dimensions',
+            title: 'Dimensions',
+            type: 'object',
+            fields: [
+              {
+                name: 'height',
+                title: 'Height',
+                type: 'number',
+                validation: (Rule) => Rule.required().positive(),
+              },
+              {
+                name: 'width',
+                title: 'Width',
+                type: 'number',
+                validation: (Rule) => Rule.required().positive(),
+              },
+              {
+                name: 'length',
+                title: 'Length',
+                type: 'number',
+                validation: (Rule) => Rule.required().positive(),
+              },
+              {
+                name: 'unit',
+                title: 'Unit',
+                type: 'string',
+                options: {
+                  list: ['inch', 'cm', 'meter'],
+                },
+                validation: (Rule) => Rule.required(),
+              },
+            ],
+          },
+        ]
+      }
     ],
   });
   

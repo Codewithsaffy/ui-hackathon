@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+// export const dynamic = "force-dynamic"; // Force dynamic rendering
+
+
 const page = async () => {
   const data = await getProduct("general");
   return (

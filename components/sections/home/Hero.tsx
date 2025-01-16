@@ -45,14 +45,14 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="md:w-[400px] w-[300px] md:h-[400px] h-[300px]  translate-x-[10px] md:translate-x-20 relative  rounded-full bg-[#ECD2FA59]">
+        <div className="md:w-[500px] w-[300px] md:h-[500px] h-[300px]  translate-x-[10px] md:translate-x-20 relative  rounded-full bg-[#ECD2FA59]">
           <div className="bg-[url(/hero/discount.svg)] w-[80px] h-[80px] md:w-[130px] md:h-[130px] rounded-full absolute -top-5 right-0 flex items-center justify-center font-bold text-white text-center text-xl md:text-4xl flex-col">
             {/* {" "}
             <p>{slides.sliders[0].discount}</p>
             <p>off</p> */}
           </div>
-          <div className="w-[300px] md:w-[400px]  md:h-[400px]  translate-y-6 -translate-x-10 rounded-full h-[300px] bg-[#ECD2FA59] ">
-            <Image height={400} width={400} src={slides.sliders[0].image} className="z-20 " alt="hello" />
+          <div className="w-[300px] md:w-[500px]  md:h-[500px]  translate-y-6 -translate-x-10 rounded-full h-[300px] bg-[#ECD2FA59] ">
+            <Image height={500} width={500} src={slides.sliders[0].image} className="z-20 " alt="hello" />
           </div>
         </div>
         <div className="flex items-center absolute bottom-10 w-full justify-center gap-4">
