@@ -1,26 +1,19 @@
-import { client } from "@/sanity/lib/client";
-export type Product = {
-  _id: string;
-  name: string;
-  price: number;
-  prevPrice: number;
-  rating: number;
-  image: string;
-  badge: string | null;
-  code: string | null;
-  description: string;
-  category: "featured" | "latest" | "trending" | "general" | "productPage";
-};
+import { ProductData } from "@/type";
 
 export const getProduct = async (
   category: "featured" | "latest" | "trending" | "general" | "productPage"
-): Promise<Product[]> => {
-  const res = await client.fetch(
-    `*[_type == "product" && category == "${category}"]`, {}, {
-      next:{
-        revalidate:60
-      }
+): Promise<ProductData[]> => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/product?category=${category}`, {
+      next: { revalidate: 10 }, // Optional caching strategy
     });
-    console.log(res)
-  return res;
+    if (!res.ok) {
+      throw new Error(`Failed to fetch products: ${res.status}`);
+    }
+    const data = await res.json();
+    return data.products || [];
+  } catch (error) {
+    console.error("Error fetching product data:", error);
+    return [];
+  }
 };

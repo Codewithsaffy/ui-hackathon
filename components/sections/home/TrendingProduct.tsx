@@ -1,4 +1,4 @@
-import { Product } from "@/lib/helper/getProduct";
+import { ProductData } from "@/type";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -55,7 +55,7 @@ const rightProduct = [
   },
 ];
 
-const TrendingProduct = ({ cardData }: { cardData: Product[] }) => {
+const TrendingProduct = ({ cardData }: { cardData: ProductData[] }) => {
   return (
     <section className="mt-20 container">
       <h1 className="text-4xl text-center jon font-bold text-indigo-950">

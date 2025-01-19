@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "migration.mjs"  ],
   "exclude": [
     "node_modules"
   ]

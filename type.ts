@@ -56,37 +56,28 @@ export interface TrackingData {
   actualDeliveryDate?: string;
 }
 
-interface Weight {
-  value: number;
-  unit: string;
-}
-
-interface Dimensions {
-  height: number;
-  width: number;
-  length: number;
-  unit: string;
-}
-
-interface Shipment {
-  weight: Weight;
-  dimensions: Dimensions;
-}
-
-interface Inventory {
-  stock: number;
-  sku: string;
-}
-
 export interface ProductData {
+  _id?: string;
   _type: string;
   name: string;
-  slug: string;
-  description: string;
   price: number;
-  images: string[];
-  stock: number;
-  sku: string;
-  weight: Weight;
-  dimensions: Dimensions;
+  prevPrice: number;
+  rating: number;
+  image: string;
+  badge: string | null;
+  code: string;
+  description: string;
+  category: string;
+  shipment: {
+    weight: {
+      value: number;
+      unit: string;
+    };
+    dimensions: {
+      height: number;
+      width: number;
+      length: number;
+      unit: string;
+    };
+  };
 }

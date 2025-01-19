@@ -1,7 +1,7 @@
 import AddToCart from "@/components/buttons/AddToCart";
 import SubHero from "@/components/small/SubHero";
-import { Product } from "@/lib/helper/getProduct";
 import { client } from "@/sanity/lib/client";
+import { ProductData } from "@/type";
 import { ArrowRight, Heart, Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
@@ -41,7 +41,29 @@ const relatedProducts = [
 const page = async (props: { params: Promise<{ id: string }> }) => {
   const params = await props.params;
   const id = params.id
-  const res:Product[] = await client.fetch(`*[_type == "product" && _id == "${id}"]`);
+  const res:ProductData[] = await client.fetch(`*[_type == "product" && _id == "${id}"]{
+    _id,
+    name,
+    description,
+    price,
+    rating,
+    prevPrice,
+    badge,
+    code,
+    category,
+    "image": image.asset->url, 
+    shipment {
+      weight {
+        value,
+        unit
+      },
+      dimensions {
+        height,
+        width,
+        length,
+        unit
+      }
+  }}`);
   const product = res[0];
   // if (!product) {
   //   return (

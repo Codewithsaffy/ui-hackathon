@@ -1,9 +1,9 @@
-import { Product } from "@/lib/helper/getProduct";
+import { ProductData } from "@/type";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const LatestCard = ({ CardData, second }: { CardData: Product, second: boolean }) => {
+const LatestCard = ({ CardData, second }: { CardData: ProductData, second: boolean }) => {
   return (
     <Link href={`/product/${CardData._id}`} className="h-[306px] jon max-w-[350px] w-full flex flex-col gap-2">
       <div className={`h-[270px] flex items-center justify-center ${second ? "bg-white" : "bg-[#F7F7F7]"} p-1`}>

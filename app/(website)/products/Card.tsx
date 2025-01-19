@@ -1,4 +1,4 @@
-import { Product } from "@/lib/helper/getProduct";
+import { ProductData } from "@/type";
 import { Heart, ShoppingCart, ZoomIn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ const icons = [
   <ZoomIn key={3} size={20} />,
 ];
 
-const Card = ({ item }: { item: Product }) => {
+const Card = ({ item }: { item: ProductData }) => {
   return (
     <Link
       href={`/product/${item._id}`}

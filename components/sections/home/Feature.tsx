@@ -1,9 +1,9 @@
 import React from "react";
 import FeatureCard from "../../cards/FeatureCard";
-import { Product } from "@/lib/helper/getProduct";
+import { ProductData } from "@/type";
 
-const Feature =  ({ cardData }: { cardData: Product[] }) => {
-
+const Feature =  ({ cardData }: { cardData: ProductData[] }) => {
+console.log(cardData)
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">
       <h2 className="text-[#151875] jon text-[42px] font-bold">

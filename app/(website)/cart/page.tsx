@@ -46,7 +46,7 @@ const CartPage = () => {
                   <Image
                     className="h-[60px] w-[60px] md:h-[87px] md:w-[83px] rounded-md"
                     src={item.image as string}
-                    alt={item.product}
+                    alt={item.name.trim()}
                     width={85}
                     height={85}
                   />

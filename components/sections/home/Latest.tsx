@@ -1,9 +1,9 @@
 import React from "react";
 import LatestCard from "../../cards/LatestCard";
 import LatestBar from "../../small/LatestBar";
-import {  Product } from "@/lib/helper/getProduct";
+import { ProductData } from "@/type";
 
-const Leatest =  ({ cardData }: { cardData: Product[]}) => {
+const Leatest =  ({ cardData }: { cardData: ProductData[]}) => {
   
   return (
     <section className="container py-10 flex flex-col gap-8 items-center">
