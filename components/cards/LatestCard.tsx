@@ -7,7 +7,7 @@ const LatestCard = ({ CardData, second }: { CardData: ProductData, second: boole
   return (
     <Link href={`/product/${CardData._id}`} className="h-[306px] jon max-w-[350px] w-full flex flex-col gap-2">
       <div className={`h-[270px] flex items-center justify-center ${second ? "bg-white" : "bg-[#F7F7F7]"} p-1`}>
-        <Image src={CardData.image} alt="" width={245} height={245} />
+        <Image src={CardData.image} alt="" width={245} height={245} loading="lazy" />
       </div>
       <div className="text-[#151875] flex items-center justify-between w-full">
         <p>{CardData.name}</p>

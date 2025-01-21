@@ -12,6 +12,7 @@ const FeatureCard = ({ cardData }: { cardData:ProductData  }) => {
           width={180}
           height={180}
           alt={cardData.name}
+          loading="lazy"
         />
       </div>
       <div className="flex flex-col gap-2 items-center ">

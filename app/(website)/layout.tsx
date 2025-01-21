@@ -5,6 +5,9 @@ import { Josefin_Sans, Lato } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import StripeProvider from "@/provider/CartProvider";
 import { ClerkProvider } from "@clerk/nextjs";
+import WishlistContextProvider from "@/provider/wishlistContextProvider";
+import { Toaster } from "@/components/ui/toaster"
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,7 +24,6 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
 });
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,12 +34,15 @@ export default function RootLayout({
       <html lang="en">
         <body
           className={`${josefin.variable} ${lato.variable} ${lato.className} overflow-x-hidden antialiased`}
-        >
+          >
+          <WishlistContextProvider>
           <StripeProvider>
-            <Header />
-            {children}
-            <Footer />
+              <Header />
+              {children}
+              <Toaster/>
+              <Footer />
           </StripeProvider>
+            </WishlistContextProvider>
         </body>
       </html>
     </ClerkProvider>

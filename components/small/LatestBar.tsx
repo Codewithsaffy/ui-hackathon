@@ -8,10 +8,8 @@ const LatestBar = () => {
         <Link
           href=""
           key={index}
-          className={` text-[18px]  ${
-            index === 0
-              ? "text-[#FB2E86] underline"
-              : "text-[#151875]"
+          className={` text-sm md:text-[18px]  ${
+            index === 0 ? "text-[#FB2E86] underline" : "text-[#151875]"
           }`}
         >
           {item}

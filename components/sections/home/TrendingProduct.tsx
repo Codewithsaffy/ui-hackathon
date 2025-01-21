@@ -57,18 +57,26 @@ const rightProduct = [
 
 const TrendingProduct = ({ cardData }: { cardData: ProductData[] }) => {
   return (
-    <section className="mt-20 container">
-      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
+    <section className="mt-20 px-4 md:px-0 mx-auto max-w-screen-xl">
+      <h1 className="text-2xl md:text-4xl text-center jon font-bold text-indigo-950">
         Trending Products
       </h1>
-      <div className="flex justify-center items-center gap-10 flex-col md:flex-row">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 justify-items-center gap-4 mt-10">
         {cardData.map((item, index) => (
           <div
             key={index}
-            className="shadow w-[270px] h-[350px] flex justify-center items-center flex-col mt-10 cursor-pointer hover:scale-110 transition-all"
+            className="shadow w-full max-w-[270px] h-[350px] flex justify-center items-center flex-col cursor-pointer hover:scale-105 transition-all"
           >
-            <Image src={item.image} alt={item.name} width={247} height={244} />
-            <p className="lato font-bold text-indigo-950 my-4">{item.name}</p>
+            <Image
+              src={item.image}
+              alt={item.name}
+              width={247}
+              height={244}
+              className="w-[90%] h-auto"
+            />
+            <p className="lato font-bold text-indigo-950 my-4 text-center px-2">
+              {item.name}
+            </p>
             <div className="flex justify-center items-center gap-x-2 jon">
               <p className="text-indigo-950 text-sm">{item.price}</p>
               <p className="text-slate-300 text-[12px] line-through">
@@ -78,54 +86,58 @@ const TrendingProduct = ({ cardData }: { cardData: ProductData[] }) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between items-center w-full h-[270px] gap-2 mt-6 lg:flex-row flex-col">
-        {discountProducts.map((item, i) => (
-          <div key={i} className={`${item.bg}  h-full w-[420px] relative p-4`}>
-            <h3 className="text-[#151875] text-[26px] font-semibold">
-              {item.text}
-            </h3>
-            <Link
-              href={"/"}
-              className="text-[#FB2E86] font-lato mt-2 underline font-semibold"
-            >
-              Shop Now
-            </Link>
-            <Image
-              width={200}
-              height={200}
-              className="h-auto w-auto absolute bottom-0 right-0"
-              alt="trending-product"
-              src={item.img.url}
-            />
-          </div>
-        ))}
 
-        <div className=" flex flex-col h-[270px] justify-between ">
+      <div className="flex flex-col lg:flex-row gap-4 mt-6">
+        <div className="flex flex-col md:flex-row gap-4 w-full lg:w-2/3">
+          {discountProducts.map((item, i) => (
+            <div
+              key={i}
+              className={`${item.bg} h-[270px] md:h-[270px] w-full relative p-4`}
+            >
+              <h3 className="text-[#151875] text-lg md:text-[26px] font-semibold max-w-[200px]">
+                {item.text}
+              </h3>
+              <Link
+                href={"/"}
+                className="text-[#FB2E86] font-lato mt-2 underline font-semibold text-sm md:text-base"
+              >
+                Shop Now
+              </Link>
+              <Image
+                width={200}
+                height={200}
+                className="h-auto w-[40%] md:w-auto absolute bottom-0 right-0"
+                alt="trending-product"
+                src={item.img.url}
+              />
+            </div>
+          ))}
+        </div>
+
+        <div className="w-full lg:w-1/3 flex flex-col gap-4">
           {rightProduct.map((item, i) => (
             <div
               key={i}
-              className="flex items-center justify-between gap-2 h-[74px]"
+              className="flex items-center justify-between gap-2 h-[74px] w-full bg-[#F5F6F8] p-2"
             >
-              <div className="bg-[#F5F6F8] w-[105px]">
+              <div className="min-w-[105px]">
                 <Image
                   src={item.img.url}
                   alt="product"
                   width={67}
                   height={67}
-                  className="h-[67px] w-[67px]"
+                  className="h-[67px] w-[67px] object-contain"
                 />
               </div>
-              <div className="text-[#151875]">
+              <div className="text-[#151875] text-sm md:text-base">
                 <p>{item.text}</p>
                 <del className="text-xs">${item.price}.00</del>
               </div>
             </div>
           ))}
         </div>
-        {/* <div className="bg-blue-500 h-full basis-1 grow"></div> */}
       </div>
     </section>
   );
 };
-
 export default TrendingProduct;

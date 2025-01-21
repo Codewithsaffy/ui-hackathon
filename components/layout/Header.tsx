@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Heart, Menu, PhoneCall, ShoppingCart } from "lucide-react";
 import { CiMail } from "react-icons/ci";
 import { FiSearch } from "react-icons/fi";
+import Form from "next/form";
+
 import { AiOutlineHeart } from "react-icons/ai";
-import { HiOutlineUser } from "react-icons/hi";
 import { useState } from "react";
 import AuthenticationButton from "../buttons/AuthenticationButton";
 
@@ -15,7 +16,7 @@ export function Header() {
   return (
     <header className="border-b relative">
       {/* Topbar */}
-      <div className="bg-violet-600 jon text-white py-2">
+      <div className="bg-violet-600 text-white py-2">
         <div className="container mx-auto flex justify-between items-center text-sm px-4 lg:px-0">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
@@ -28,32 +29,39 @@ export function Header() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <select className="bg-transparent">
+            <select className="bg-transparent hidden sm:block">
               <option>English</option>
               <option>Spanish</option>
             </select>
-            <select className="bg-transparent">
+            <select className="bg-transparent hidden sm:block">
               <option>USD</option>
               <option>EUR</option>
             </select>
 
+            {/* Authentication Button */}
             <AuthenticationButton />
-            {/* <Link href="/login" className="hidden sm:flex items-center gap-1">
-              <p>Login</p>
-              <User size={16} />
-            </Link> */}
+
             <Link
               href="/wishlist"
-              className="hidden  sm:flex items-center gap-1"
+              className="hidden sm:flex items-center gap-1"
             >
               <p>Wishlist</p>
               <Heart size={16} />
             </Link>
+
             <Link href="/cart" className="hidden sm:block">
               <ShoppingCart size={18} />
             </Link>
-            <HiOutlineUser className="block sm:hidden" />
-            <AiOutlineHeart className="block sm:hidden" />
+
+            {/* Mobile Icons */}
+            <div className="flex items-center gap-4 sm:hidden">
+              <Link href="/cart">
+                <ShoppingCart size={18} />
+              </Link>
+              <Link href="/wishlist">
+                <AiOutlineHeart size={18} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -62,7 +70,7 @@ export function Header() {
       <div className="container mx-auto py-4 px-4 lg:px-0">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold jon">
+          <Link href="/" className="text-2xl font-bold text-violet-600">
             Hekto
           </Link>
 
@@ -76,43 +84,38 @@ export function Header() {
               Home
             </Link>
             <Link
-              href="/pages"
-              className="font-medium py-2 md:py-0 px-4 md:px-0"
-            >
-              Pages
-            </Link>
-            <Link
               href="/products"
               className="font-medium py-2 md:py-0 px-4 md:px-0"
             >
               Products
             </Link>
             <Link
-              href="/blog"
+              href="/products"
               className="font-medium py-2 md:py-0 px-4 md:px-0"
             >
-              Blog
+              About
             </Link>
             <Link
-              href="/shop"
+              href="/products"
               className="font-medium py-2 md:py-0 px-4 md:px-0"
             >
-              Shop
+              Contact
             </Link>
           </nav>
 
           {/* Search and Mobile Menu */}
           <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center">
+            <Form action="/products" className="hidden md:flex items-center">
               <input
                 type="search"
+                name="query"
                 placeholder="Search"
                 className="border rounded-l px-4 py-2"
               />
               <button className="rounded-l-none py-[13px] px-4 bg-pink-600 text-white hover:bg-pink-700">
                 <FiSearch />
               </button>
-            </div>
+            </Form>
             <Menu
               className="block md:hidden cursor-pointer"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -122,17 +125,23 @@ export function Header() {
       </div>
 
       {/* Mobile Search */}
-      <div className="md:hidden bg-white shadow px-4 py-2">
-        <div className="flex items-center">
+      <div
+        className={`md:hidden bg-white shadow px-4 py-2 ${menuOpen ? "block" : "hidden"}`}
+      >
+        <Form action="/products" className="flex items-center">
           <input
             type="search"
+            name="query"
             placeholder="Search"
             className="flex-1 border rounded-l px-4 py-2"
           />
-          <button className="rounded-l-none py-[13px] px-4 bg-pink-600 text-white hover:bg-pink-700">
+          <button
+            type="submit"
+            className="rounded-l-none py-[13px] px-4 bg-pink-600 text-white hover:bg-pink-700"
+          >
             <FiSearch />
           </button>
-        </div>
+        </Form>
       </div>
     </header>
   );

@@ -26,7 +26,7 @@ const Discount = () => {
       <h1 className="text-4xl text-center jon font-bold text-indigo-950">
         Discount Items
       </h1>
-      <div className="mt-10 lato flex justify-center items-center gap-8 text-[18px] md:flex-row flex-col">
+      <div className="mt-10 lato flex justify-center items-center gap-8 text-sm md:text-[18px]">
         <p className="hover:text-red-500 transition-all hover:underline">
           Wood Chair
         </p>

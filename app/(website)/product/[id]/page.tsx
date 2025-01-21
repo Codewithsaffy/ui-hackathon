@@ -1,8 +1,9 @@
 import AddToCart from "@/components/buttons/AddToCart";
+import AddWishListButton from "@/components/buttons/AddWishListButton";
 import SubHero from "@/components/small/SubHero";
 import { client } from "@/sanity/lib/client";
 import { ProductData } from "@/type";
-import { ArrowRight, Heart, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { IoMdStar } from "react-icons/io";
@@ -65,14 +66,6 @@ const page = async (props: { params: Promise<{ id: string }> }) => {
       }
   }}`);
   const product = res[0];
-  // if (!product) {
-  //   return (
-  //     <main>
-  //       <h1>Product not found</h1>
-  //     </main>
-  //   );
-
-  // }
 
   return (
     <main>
@@ -146,7 +139,8 @@ const page = async (props: { params: Promise<{ id: string }> }) => {
           </p>
           <div className="flex items-center gap-4">
             <AddToCart product={product} />
-            <Heart size={20} />
+            <AddWishListButton product={product}/>
+            
           </div>
           <p className="text-[#0D134E] font-semibold text-sm lg:text-base">
             Categories
