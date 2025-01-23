@@ -2,7 +2,6 @@ import Discount from "@/components/sections/home/Discount";
 import Feature from "@/components/sections/home/Feature";
 import Hero from "@/components/sections/home/Hero";
 import Leatest from "@/components/sections/home/Latest";
-import LatestBlog from "@/components/sections/home/LatestBlog";
 import Rofex from "@/components/sections/home/Rofex";
 import TopCategories from "@/components/sections/home/TopCategories";
 import TrendingProduct from "@/components/sections/home/TrendingProduct";
@@ -23,7 +22,6 @@ export default async function Home() {
       <TrendingProduct cardData={trending} />
       <Discount />
       <TopCategories />
-      <LatestBlog />
     </main>
   );
 }

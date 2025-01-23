@@ -11,17 +11,16 @@ export const dynamic = "force-dynamic";
 const Products = async ({
   searchParams,
 }: {
-  searchParams:Promise< {
+  searchParams: Promise<{
     query?: string;
     sort?: "low-to-high" | "high-to-low" | "normal";
   }>;
 }) => {
-  const query = (await searchParams).query || ""; 
-  const sort = (await searchParams).sort || "normal"; 
+  const query = (await searchParams).query || "";
+  const sort = (await searchParams).sort || "normal";
 
   // Fetch filtered product data
   const data = await filterProduct({ query, sort });
-  
 
   return (
     <main>
@@ -30,37 +29,40 @@ const Products = async ({
       <FilterSection currentQuery={query} currentSort={sort} />
 
       {/* Product Listing */}
-      <section className="grid grid-cols-1 p-4 sm:p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center container mt-16">
+      <section className="grid grid-cols-2 gap-4 px-4 sm:px-6 md:px-8 lg:grid-cols-3 place-items-center container mt-8">
         {data && data.length === 0 ? (
-          <p className="text-center">This product is not found</p>
+          <p className="text-center text-sm font-medium text-gray-500 col-span-2">
+            No products found.
+          </p>
         ) : (
           data.map((item, index) => (
             <Link
               href={`/product/${item._id}`}
               key={index}
-              className="h-[400px]"
+              className="w-full max-w-[160px] sm:max-w-[200px]"
             >
-              <div className="bg-slate-100 w-[250px] h-[280px] flex justify-center items-center">
+              {/* Product Card */}
+              <div className="bg-slate-100 w-full h-[220px] flex justify-center items-center rounded-md shadow-sm">
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={150}
-                  height={150}
+                  width={100}
+                  height={100}
                 />
               </div>
-              <div className="flex justify-center items-center flex-col">
-                <h1 className="text-lg text-center font-bold text-indigo-950 mt-4">
+              <div className="flex flex-col items-center mt-2">
+                <h1 className="text-sm font-semibold text-indigo-950 text-center">
                   {item.name}
                 </h1>
                 <Image
                   src={"/pagesPage/pagination.png"}
                   alt="pagination-img"
-                  width={42}
-                  height={10}
-                  className="mt-2"
+                  width={36}
+                  height={8}
+                  className="mt-1"
                 />
-                <div className="flex justify-center gap-x-3 mt-3 text-sm">
-                  <p className="text-indigo-900">${item.price}.00</p>
+                <div className="flex justify-center gap-x-2 mt-2 text-xs">
+                  <p className="text-indigo-900 font-bold">${item.price}.00</p>
                   <p className="text-red-600 line-through">
                     ${item.prevPrice}.00
                   </p>
@@ -72,7 +74,7 @@ const Products = async ({
       </section>
 
       {/* Brands Section */}
-      <div className="flex justify-center items-center mt-14">
+      <div className="flex justify-center items-center mt-10">
         <Image
           src={"/topProduct/brands.png"}
           alt="brands-img"

@@ -3,19 +3,24 @@ import CheckoutButton from "@/components/buttons/CheckoutButton";
 import SubHero from "@/components/small/SubHero";
 import Image from "next/image";
 import React from "react";
-// import { cartData } from "@/data/cartData";
 import { useShoppingCart } from "use-shopping-cart";
 
 const CartPage = () => {
-  const {cartDetails, clearCart , totalPrice, incrementItem, decrementItem, removeItem} = useShoppingCart()
-  console.log(cartDetails)
+  const {
+    cartDetails,
+    clearCart,
+    totalPrice,
+    incrementItem,
+    decrementItem,
+    removeItem,
+  } = useShoppingCart();
 
   return (
     <main>
       <SubHero title="Shopping Cart" />
-      <section className="container  mt-20 mx-auto md:p-0 px-4 py-8 gap-8 flex flex-col lg:flex-row justify-between">
+      <section className="container mt-10 mx-auto md:p-0 px-4 py-8 gap-8 flex flex-col lg:flex-row justify-between">
         {/* Cart Table Section */}
-        <div className="w-full ">
+        <div className="w-full">
           {/* Table Header */}
           <div className="grid grid-cols-12 items-center border-b pb-4">
             <p className="col-span-6 font-bold text-[#1D3178] text-sm md:text-base">
@@ -34,23 +39,26 @@ const CartPage = () => {
 
           {/* Table Rows */}
           <div className="mt-6 space-y-4">
-         
-
             {Object.values(cartDetails ?? {}).map((item, index) => (
               <div
                 key={index}
                 className="grid grid-cols-12 items-center gap-4 border-b pb-4"
               >
                 {/* Product Details */}
-                <div className="col-span-6 relative flex gap-4 items-center">
+                <div className="col-span-6 relative flex gap-2 md:gap-4 items-center">
                   <Image
-                    className="h-[60px] w-[60px] md:h-[87px] md:w-[83px] rounded-md"
+                    className="h-[50px] w-[50px] md:h-[87px] md:w-[83px] rounded-md"
                     src={item.image as string}
                     alt={item.name.trim()}
                     width={85}
                     height={85}
                   />
-                  <button onClick={() => removeItem(item.id)} className="absolute top-0 left-0 bg-black leading-none text-white w-3 h-3 md:w-5 md:h-5  rounded-full flex justify-center items-center">x</button>
+                  <button
+                    onClick={() => removeItem(item.id)}
+                    className="absolute top-0 left-0 bg-black leading-none text-white w-4 h-4 md:w-5 md:h-5 rounded-full flex justify-center items-center text-xs md:text-sm"
+                  >
+                    x
+                  </button>
                   <div>
                     <h4 className="font-semibold text-sm md:text-base text-[#000000]">
                       {item.product}
@@ -71,13 +79,19 @@ const CartPage = () => {
 
                 {/* Quantity */}
                 <div className="col-span-2 flex justify-center items-center gap-2">
-                  <button onClick={() => incrementItem(item.id)} className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
+                  <button
+                    onClick={() => incrementItem(item.id)}
+                    className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded"
+                  >
                     +
                   </button>
                   <p className="text-sm md:text-base text-[#000000]">
                     {item.quantity}
                   </p>
-                  <button onClick={() => decrementItem(item.id)} className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded">
+                  <button
+                    onClick={() => decrementItem(item.id)}
+                    className="w-6 h-6 md:w-[24px] md:h-[24px] bg-[#E7E7EF] flex justify-center items-center text-[#1D3178] font-bold rounded"
+                  >
                     -
                   </button>
                 </div>
@@ -92,10 +106,13 @@ const CartPage = () => {
 
           {/* Update and Clear Cart Buttons */}
           <div className="flex flex-wrap justify-between gap-4 mt-6">
-            <button  className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
+            <button className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
               Update Cart
             </button>
-            <button onClick={() => clearCart()} className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded">
+            <button
+              onClick={() => clearCart()}
+              className="text-white font-bold w-full md:w-[179px] h-[41px] bg-pink-500 rounded"
+            >
               Clear Cart
             </button>
           </div>
@@ -108,7 +125,7 @@ const CartPage = () => {
             <h3 className="text-[#1D3178] text-lg md:text-xl font-semibold">
               Cart Totals
             </h3>
-            <div className="bg-[#F4F4FC] p-4 md:p-8 rounded-md flex flex-col gap-4 w-[371px]">
+            <div className="bg-[#F4F4FC] p-4 md:p-8 rounded-md flex flex-col gap-4 w-full max-w-[371px]">
               <div className="flex justify-between border-b pb-2 border-gray-300">
                 <h4 className="text-[#1D3178] text-sm md:text-base font-semibold">
                   Subtotals:
@@ -119,9 +136,7 @@ const CartPage = () => {
                 <h4 className="text-[#1D3178] text-sm md:text-base font-semibold">
                   Totals:
                 </h4>
-                <p className="text-[#15245E]">
-                  {totalPrice?.toFixed(2)}
-                </p>
+                <p className="text-[#15245E]">{totalPrice?.toFixed(2)}</p>
               </div>
               <div className="flex gap-2 items-center">
                 <div className="w-3 h-3 bg-[#19D16F] rounded-full"></div>
@@ -129,7 +144,7 @@ const CartPage = () => {
                   Shipping & taxes calculated at checkout
                 </p>
               </div>
-              <CheckoutButton/>
+              <CheckoutButton />
             </div>
           </div>
 
@@ -138,7 +153,7 @@ const CartPage = () => {
             <h3 className="text-[#1D3178] text-lg md:text-xl font-semibold">
               Calculate Shopping
             </h3>
-            <div className="bg-slate-100 p-4 md:p-8 rounded-md w-[371px]">
+            <div className="bg-slate-100 p-4 md:p-8 rounded-md w-full max-w-[371px]">
               <input
                 type="text"
                 placeholder="Bangladesh"

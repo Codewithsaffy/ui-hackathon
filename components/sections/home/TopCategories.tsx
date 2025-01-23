@@ -30,7 +30,7 @@ const TopCategories = () => {
   const [activeNo, setActiveNo] = useState(1);
   return (
     <section className="mt-20 jon ">
-      <h1 className="text-4xl text-center jon font-bold text-indigo-950">
+      <h1 className="text-[#151875] text-[28px] sm:text-[32px] lg:text-[42px] font-bold text-center">
         Top Categories
       </h1>
       <div className="flex flex-col container lg:flex-row  justify-between  items-center mt-10">

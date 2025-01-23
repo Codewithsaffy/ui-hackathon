@@ -3,15 +3,32 @@
 import Link from "next/link";
 import { Heart, Menu, PhoneCall, ShoppingCart } from "lucide-react";
 import { CiMail } from "react-icons/ci";
-import { FiSearch } from "react-icons/fi";
-import Form from "next/form";
-
-import { AiOutlineHeart } from "react-icons/ai";
-import { useState } from "react";
+import { useShoppingCart } from "use-shopping-cart";
 import AuthenticationButton from "../buttons/AuthenticationButton";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import SearchButton from "../buttons/SearchButton";
+import { usePathname } from "next/navigation";
 
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { cartCount } = useShoppingCart();
+  const pathname = usePathname();
+
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Products", href: "/products" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+  ];
+
+  const isActive = (href: string) =>
+    pathname === href ? "text-pink-500" : "text-black";
 
   return (
     <header className="border-b relative">
@@ -23,45 +40,31 @@ export function Header() {
               <CiMail />
               <p className="hidden sm:block">mkhammad@gmail.com</p>
             </div>
-            <div className="hidden sm:flex items-center gap-1">
+            <div className="flex items-center gap-1">
               <PhoneCall size={16} />
-              <p>(1234) 567890</p>
+              <p className="hidden sm:block">(1234) 567890</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <select className="bg-transparent hidden sm:block">
+            <select className="bg-transparent">
               <option>English</option>
               <option>Spanish</option>
             </select>
-            <select className="bg-transparent hidden sm:block">
+            <select className="bg-transparent">
               <option>USD</option>
               <option>EUR</option>
             </select>
-
-            {/* Authentication Button */}
             <AuthenticationButton />
-
-            <Link
-              href="/wishlist"
-              className="hidden sm:flex items-center gap-1"
-            >
-              <p>Wishlist</p>
+            <Link href="/wishlist" className="flex items-center gap-1">
+              <p className="hidden sm:block">Wishlist</p>
               <Heart size={16} />
             </Link>
-
-            <Link href="/cart" className="hidden sm:block">
+            <Link href="/cart" className="relative">
               <ShoppingCart size={18} />
+              <p className="absolute bg-blue-950 -top-3 -right-2 text-xs font-bold text-white w-4 h-4 rounded-full flex items-center justify-center">
+                {cartCount}
+              </p>
             </Link>
-
-            {/* Mobile Icons */}
-            <div className="flex items-center gap-4 sm:hidden">
-              <Link href="/cart">
-                <ShoppingCart size={18} />
-              </Link>
-              <Link href="/wishlist">
-                <AiOutlineHeart size={18} />
-              </Link>
-            </div>
           </div>
         </div>
       </div>
@@ -75,74 +78,52 @@ export function Header() {
           </Link>
 
           {/* Navigation */}
-          <nav
-            className={`${
-              menuOpen ? "block" : "hidden"
-            } absolute md:relative top-full md:top-auto left-0 md:left-auto w-full md:w-auto bg-white md:bg-transparent shadow-md md:shadow-none z-10 md:flex items-center gap-6 flex-col md:flex-row md:items-center`}
-          >
-            <Link href="/" className="font-medium py-2 md:py-0 px-4 md:px-0">
-              Home
-            </Link>
-            <Link
-              href="/products"
-              className="font-medium py-2 md:py-0 px-4 md:px-0"
-            >
-              Products
-            </Link>
-            <Link
-              href="/products"
-              className="font-medium py-2 md:py-0 px-4 md:px-0"
-            >
-              About
-            </Link>
-            <Link
-              href="/products"
-              className="font-medium py-2 md:py-0 px-4 md:px-0"
-            >
-              Contact
-            </Link>
+          <nav className="hidden md:flex gap-5 items-center">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`font-medium py-2 px-4 ${isActive(item.href)}`}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
+          <SearchButton mobile={false} />
 
-          {/* Search and Mobile Menu */}
-          <div className="flex items-center gap-4">
-            <Form action="/products" className="hidden md:flex items-center">
-              <input
-                type="search"
-                name="query"
-                placeholder="Search"
-                className="border rounded-l px-4 py-2"
-              />
-              <button className="rounded-l-none py-[13px] px-4 bg-pink-600 text-white hover:bg-pink-700">
-                <FiSearch />
-              </button>
-            </Form>
-            <Menu
-              className="block md:hidden cursor-pointer"
-              onClick={() => setMenuOpen(!menuOpen)}
-            />
+          {/* Mobile Menu */}
+          <div className="md:hidden flex">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Menu />
+              </SheetTrigger>
+              <SheetContent className="px-4 py-10">
+                <SheetHeader>
+                  <SheetTitle>
+                    <SearchButton mobile={true} />
+                  </SheetTitle>
+                </SheetHeader>
+                <SheetDescription>
+                  <nav className="flex flex-col gap-4 mt-4">
+                    {navItems.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`font-medium py-2 px-4 rounded-md ${isActive(
+                          item.href
+                        )} hover:text-pink-500`}
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </nav>
+                </SheetDescription>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
-
-      {/* Mobile Search */}
-      <div
-        className={`md:hidden bg-white shadow px-4 py-2 ${menuOpen ? "block" : "hidden"}`}
-      >
-        <Form action="/products" className="flex items-center">
-          <input
-            type="search"
-            name="query"
-            placeholder="Search"
-            className="flex-1 border rounded-l px-4 py-2"
-          />
-          <button
-            type="submit"
-            className="rounded-l-none py-[13px] px-4 bg-pink-600 text-white hover:bg-pink-700"
-          >
-            <FiSearch />
-          </button>
-        </Form>
-      </div>
+      {/* </div> */}
     </header>
   );
 }
