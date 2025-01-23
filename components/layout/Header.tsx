@@ -8,7 +8,6 @@ import AuthenticationButton from "../buttons/AuthenticationButton";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -17,7 +16,7 @@ import SearchButton from "../buttons/SearchButton";
 import { usePathname } from "next/navigation";
 
 export function Header() {
-  const { cartCount } = useShoppingCart();
+  const { cartCount  } = useShoppingCart();
   const pathname = usePathname();
 
   const navItems = [
@@ -103,7 +102,6 @@ export function Header() {
                     <SearchButton mobile={true} />
                   </SheetTitle>
                 </SheetHeader>
-                <SheetDescription>
                   <nav className="flex flex-col gap-4 mt-4">
                     {navItems.map((item) => (
                       <Link
@@ -117,7 +115,6 @@ export function Header() {
                       </Link>
                     ))}
                   </nav>
-                </SheetDescription>
               </SheetContent>
             </Sheet>
           </div>

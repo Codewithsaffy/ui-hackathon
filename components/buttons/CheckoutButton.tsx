@@ -30,6 +30,7 @@ const CheckoutButton: React.FC = () => {
         if (!res.ok) {
           throw new Error("Failed to create checkout session");
         }
+        console.log(res)
 
         const { sessionId } = await res.json();
 

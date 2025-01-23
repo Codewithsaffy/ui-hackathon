@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 
-// Dynamic rendering ensures we handle dynamic data
 export const dynamic = "force-dynamic";
 
 const WishListPage = () => {
@@ -14,9 +13,7 @@ const WishListPage = () => {
   return (
     <main>
       <SubHero title="Wish List" />
-      {/* Filter Component */}
 
-      {/* Product Listing */}
       <section className="grid grid-cols-1 p-4 sm:p-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center container mt-16">
         {products.length === 0 ? (
           <p className="text-center">This product is not found</p>

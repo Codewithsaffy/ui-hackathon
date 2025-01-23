@@ -39,15 +39,16 @@ const Products = async ({
             <Link
               href={`/product/${item._id}`}
               key={index}
-              className="w-full max-w-[160px] sm:max-w-[200px]"
+              className="w-full max-w-[160px] sm:max-w-full"
             >
               {/* Product Card */}
               <div className="bg-slate-100 w-full h-[220px] flex justify-center items-center rounded-md shadow-sm">
                 <Image
                   src={item.image}
                   alt={item.name}
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
+
                 />
               </div>
               <div className="flex flex-col items-center mt-2">
