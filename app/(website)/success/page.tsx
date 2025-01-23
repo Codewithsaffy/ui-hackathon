@@ -1,11 +1,7 @@
-"use client";
 import Link from "next/link";
 import React from "react";
-import { useShoppingCart } from "use-shopping-cart";
 
 const SuccessPage = () => {
-  const shopping = useShoppingCart();
-  console.log(shopping);
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 md:p-12 rounded-lg shadow-lg text-center max-w-md w-full">
