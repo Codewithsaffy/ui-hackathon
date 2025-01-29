@@ -28,7 +28,7 @@ const categories = [
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-200 mt-20 pb-10">
+    <footer className="bg-slate-200 pb-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-self-start pt-20 gap-10 lg:gap-0 px-8">
         <div className="lg:w-full lg:ml-10">
           <h1 className="text-4xl jon font-bold text-indigo-950">Hekto</h1>

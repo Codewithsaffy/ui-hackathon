@@ -5,9 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-// Dynamic rendering ensures we handle dynamic data
-export const dynamic = "force-dynamic";
-
 const Products = async ({
   searchParams,
 }: {
@@ -40,6 +37,7 @@ const Products = async ({
               href={`/product/${item._id}`}
               key={index}
               className="w-full max-w-[160px] sm:max-w-full"
+              replace
             >
               {/* Product Card */}
               <div className="bg-slate-100 w-full h-[220px] flex justify-center items-center rounded-md shadow-sm">
@@ -48,7 +46,6 @@ const Products = async ({
                   alt={item.name}
                   width={150}
                   height={150}
-
                 />
               </div>
               <div className="flex flex-col items-center mt-2">

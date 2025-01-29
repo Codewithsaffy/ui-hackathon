@@ -69,7 +69,7 @@ export function Header() {
       </div>
 
       {/* Main Header */}
-      <div className="container mx-auto py-4 px-4 lg:px-0">
+      <div className="container mx-auto sticky top-0 py-4 px-4 lg:px-0">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold text-violet-600">

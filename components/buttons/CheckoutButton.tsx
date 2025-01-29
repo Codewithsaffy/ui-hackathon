@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import { loadStripe } from "@stripe/stripe-js";
 
-const CheckoutButton: React.FC = () => {
+const CheckoutButton = () => {
   const [status, setStatus] = useState<string>("idle");
-  const { cartCount, cartDetails } = useShoppingCart();
+  const { cartCount, cartDetails, totalPrice } = useShoppingCart();
 
   const stripePromise = loadStripe(
     process.env.NEXT_PUBLIC_STRIPE_KEY!
@@ -25,6 +25,7 @@ const CheckoutButton: React.FC = () => {
           method: "POST",
           body: JSON.stringify({
             cartDetails: Object.values(cartDetails || {}),
+            updatedTotal: totalPrice as number + 200,
           }),
         });
         if (!res.ok) {
