@@ -1,3 +1,5 @@
+import { Product } from "use-shopping-cart/core";
+
 // Define types for the API response
 export type Address = {
   name: string;
@@ -28,18 +30,14 @@ export type Package = {
 
 export type Rate = {
   rateId: string;
-  rateType: string;
-  carrierId: string;
+  estimatedDeliveryDate:string;
+  shipDate: string;
   shippingAmount: {
     currency: string;
     amount: number;
   };
-  serviceType: string;
-  serviceCode: string;
-  trackable: boolean;
   carrierFriendlyName: string;
-  validationStatus: string;
-  warningMessages?: string[];
+  carrierDeliveryDays: string;
 };
 
 export interface trackingObjType {
@@ -80,4 +78,21 @@ export interface ProductData {
       unit: string;
     };
   };
+}
+
+export interface IOrder {
+  address: Address;
+  products: Product[];
+  subTotal: number;
+  shippingAmount: number;
+  total: number;
+  trackingId: string;
+  rates: Rate[];
+  LabelPDF: string;
+  userId: string;
+  orderDate: string;
+  orderStatus: string;
+  totalItems: number;
+  _id: string;
+  paymentMethod: "stripe" | "COD";
 }

@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-// in testing api you can use your  address which you have selected in create account
-// Define the "ship from" address (e.g., your warehouse or business address)
+    // in testing api you can use your  address which you have selected in create account
+    // Define the "ship from" address (e.g., your warehouse or business address)
     const shipFromAddress: Address = {
       name: "Michael Smith",
       phone: "+1 555 987 6543",
@@ -48,19 +48,20 @@ export async function POST(req: NextRequest) {
         ].filter(Boolean), // Remove empty strings
       },
     });
-
-    // Log details for debugging
-    console.log("Ship To Address:", shipeToAddress);
-    console.log("Packages:", packages);
-    console.log("Shipment Details:", shipmentDetails);
+    const rates = shipmentDetails.rateResponse.rates;
+    if (!rates?.length) {
+      return new Response(
+        JSON.stringify({
+          error: "No rates found for the given shipment details",
+        }),
+        { status: 404 }
+      );
+    }
 
     // Return the response with shipment details
-    return new Response(
-      JSON.stringify({ shipeToAddress, packages, shipmentDetails }),
-      { status: 200 }
-    );
+    return new Response(JSON.stringify({ rates }), { status: 200 });
   } catch (error) {
-    console.log("Error fetching shipping rates:", error)
+    console.log("Error fetching shipping rates:", error);
     return new Response(JSON.stringify({ error: error }), {
       status: 500,
     });

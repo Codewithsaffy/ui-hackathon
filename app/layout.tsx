@@ -27,8 +27,6 @@ export default function RootLayout({
       <body
         className={`${josefin.variable} ${lato.variable} ${lato.className} overflow-x-hidden antialiased`}
       >
-        
-
         {children}
       </body>
     </html>

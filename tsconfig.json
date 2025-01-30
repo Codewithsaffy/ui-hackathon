@@ -33,7 +33,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "migration.mjs"  ],
+, "migration.mjs", "lib/helper/getDayDiff.js", "lib/helper/getDayDiff.js", "hooks/use-format-price.js"  ],
   "exclude": [
     "node_modules"
   ]

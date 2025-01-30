@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -13,7 +13,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-
 
 import { Input } from "@/components/ui/input";
 import {
@@ -25,6 +24,11 @@ import {
 } from "@/components/ui/select";
 import { useShoppingCart } from "use-shopping-cart";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { LoaderCircle } from "lucide-react";
+import { useContext, useState } from "react";
+import OrderContext from "@/provider/order/OrderContext";
+import { Address } from "@/type";
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -42,25 +46,25 @@ const FormSchema = z.object({
 });
 
 export default function AddressComp() {
+  // hooks
+  // ========================
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
   const { cartDetails } = useShoppingCart();
+  const { order, setOrder } = useContext(OrderContext);
+  // ========================
+
   const orderProducts = Object.values(cartDetails || {});
+  console.log(order.address)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-      country: "US",
-      firstName: "",
-      lastName: "",
-      address: "1600 Pennsylvania Avenue NW",
-      city: "Washington",
-      postalCode: "20500",
-      state: "DC",
-      phoneNumber: "+1 555-678-1234",
-    },
+    defaultValues: order.address 
   });
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
-    const shipeToAddress = {
+    setLoading(true);
+    const shipeToAddress: Address = {
       name: `${formData.firstName} ${formData.lastName}`,
       phone: formData.phoneNumber,
       addressLine1: formData.address,
@@ -81,13 +85,35 @@ export default function AddressComp() {
         shipeToAddress,
         packages: packageOrder,
       });
-      console.log(response.data);
+      if (response.data.rates.length < 0) {
+        toast({
+          description: "This order can't be shipped to your location",
+        });
+      } else {
+        setOrder({
+          ...order,
+          address: shipeToAddress,
+          rates: response.data.rates,
+        });
+        localStorage.setItem(
+          "order",
+          JSON.stringify({
+            ...order,
+            address: shipeToAddress,
+            rates: response.data.rates,
+          })
+        );
+        router.push("/checkout/shippment");
+      }
     } catch (error) {
       console.log(error);
-    } finally {
       toast({
-        description: "Order has been placed",
+        description: "Something went wrong",
       });
+      setLoading(false);
+      // console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -249,8 +275,12 @@ export default function AddressComp() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full py-6">
-            Submit
+          <Button type="submit" className="font-bold py-6">
+            {loading ? (
+              <LoaderCircle className="animate-spin" />
+            ) : (
+              "Continue to Shipping"
+            )}
           </Button>
         </form>
       </Form>
