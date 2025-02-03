@@ -51,15 +51,27 @@ export default function AddressComp() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { cartDetails } = useShoppingCart();
+  const { cartDetails, totalPrice } = useShoppingCart();
   const { order, setOrder } = useContext(OrderContext);
   // ========================
 
   const orderProducts = Object.values(cartDetails || {});
-  console.log(order.address)
+  console.log(order.address);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: order.address 
+    defaultValues: order.address
+      ? order.address
+      : {
+          email: "",
+          country: "US",
+          firstName: "",
+          lastName: "",
+          address: "1600 Pennsylvania Avenue NW",
+          city: "Washington",
+          postalCode: "20500",
+          state: "DC",
+          phoneNumber: "+1 555-678-1234",
+        },
   });
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
@@ -92,15 +104,17 @@ export default function AddressComp() {
       } else {
         setOrder({
           ...order,
-          address: shipeToAddress,
+          address: formData,
           rates: response.data.rates,
+          subTotal: totalPrice as number,
         });
         localStorage.setItem(
           "order",
           JSON.stringify({
             ...order,
-            address: shipeToAddress,
+            address: formData,
             rates: response.data.rates,
+            subTotal: totalPrice,
           })
         );
         router.push("/checkout/shippment");
@@ -279,8 +293,8 @@ export default function AddressComp() {
             {loading ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              "Continue to Shipping"
-            )}
+              <span>{order.address ? "Update" : "Continue to shipping"}</span>
+            ) }
           </Button>
         </form>
       </Form>

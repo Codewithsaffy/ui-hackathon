@@ -30,7 +30,7 @@ export type Package = {
 
 export type Rate = {
   rateId: string;
-  estimatedDeliveryDate:string;
+  estimatedDeliveryDate: string;
   shipDate: string;
   shippingAmount: {
     currency: string;
@@ -79,9 +79,21 @@ export interface ProductData {
     };
   };
 }
+export interface ICustomerAddress {
+  email: string;
+  country: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  state: string;
+  phoneNumber: string;
+}
 
 export interface IOrder {
-  address: Address;
+  _type: "order";
+  address: ICustomerAddress;
   products: Product[];
   subTotal: number;
   shippingAmount: number;
@@ -96,3 +108,32 @@ export interface IOrder {
   _id: string;
   paymentMethod: "stripe" | "COD";
 }
+export interface IOrderType  {
+  products: {
+    product: string; // Product ID (reference)
+    quantity: number;
+  }[];
+  address: {
+    email: string;
+    country: string;
+    phone: string;
+    name: string;
+    postalCode: string;
+    state: string;
+    city: string;
+    street: string;
+  };
+  payment: {
+    totalAmount: number;
+    method: "stripe" | "cash_on_delivery";
+    status: "pending" | "success";
+  };
+  userId: string;
+  shipment: {
+    carrierName: string;
+    labelPdf: string; // URL of the uploaded file
+    trackingId: string;
+    shipmentRate: number;
+    status: "pending" | "shipped" | "in_transit" | "delivered" | "returned";
+  };
+};

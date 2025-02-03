@@ -7,6 +7,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useFormatPrice } from "../../hooks/use-format-price";
 import OrderContext from "@/provider/order/OrderContext";
+import { usePathname } from "next/navigation";
 
 const CartCard = () => {
   const { totalPrice, cartCount } = useShoppingCart();
@@ -60,10 +61,21 @@ const CartCard = () => {
       </div>
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-2xl">Total</h2>
-        <p>{useFormatPrice((totalPrice as number + (order.shippingAmount || 0) ))}</p>
+        <p>
+          {useFormatPrice((totalPrice as number) + (order.shippingAmount || 0))}
+        </p>
       </div>
     </div>
   );
 };
 
-export default CartCard;
+const Cart = () => {
+  const pathname = usePathname();
+  return pathname === "/checkout/success" ? null : (
+    <section className="h-[calc(100vh-124px)] sticky top-0  w-[42%] ">
+      <CartCard />
+    </section>
+  );
+};
+
+export default Cart;

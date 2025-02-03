@@ -499,7 +499,7 @@ const client = sanityClient({
 });
 
 
-const uploadImage = async (imageUrl) => {
+export const uploadImage = async (imageUrl) => {
   const res = await fetch(imageUrl);
   const bufferImage = await res.buffer();
   const image = await client.assets.upload("image", bufferImage);

@@ -7,7 +7,7 @@ import OrderContext from "@/provider/order/OrderContext";
 import axios from "axios";
 import { LoaderCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const Shipment = () => {
   const router = useRouter();
@@ -16,11 +16,16 @@ const Shipment = () => {
 
   const { order, setOrder } = useContext(OrderContext);
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
 
   const formatPrice = useFormatPrice;
-  if (!order) {
-    router.push("/checkout/information");
-  }
+  useEffect(() => {
+    if (!order.address) {
+      router.push("/checkout/information");
+    } else {
+      setPageLoading(false);
+    }
+  }, [order, router]);
   const filterByPrice =
     order.rates &&
     order.rates.sort(
@@ -63,8 +68,10 @@ const Shipment = () => {
     }
   };
 
-  return (
-    <div className="py-6">
+  return pageLoading ? (
+    <LoaderCircle className="animate-spin" />
+  ) : (
+    <main className="py-6">
       <h1 className="text-xl font-bold mb-4">Shippment Opitons</h1>
       {order.rates ? (
         filterByPrice.map((rate) => {
@@ -110,7 +117,7 @@ const Shipment = () => {
           "Continue to Payment"
         )}
       </Button>
-    </div>
+    </main>
   );
 };
 

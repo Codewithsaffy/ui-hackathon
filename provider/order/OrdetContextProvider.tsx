@@ -11,7 +11,6 @@ const OrdetContextProvider = ({ children }: { children: ReactNode }) => {
   const { cartDetails } = useShoppingCart();
   const { user } = useUser();
 
-  console.log(order);
   useEffect(() => {
     setOrder({
       ...order,
