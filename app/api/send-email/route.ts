@@ -11,13 +11,14 @@ const transporter = nodemailer.createTransport({
 
 export async function POST(request: Request) {
   try {
-    const { to, subject, text } = await request.json();
+    const { to, subject, text, html } = await request.json();
 
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to,
       subject,
       text,
+      html,
     };
 
     await transporter.sendMail(mailOptions);

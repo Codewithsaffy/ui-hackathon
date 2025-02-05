@@ -60,8 +60,6 @@ const Shipment = () => {
       setOrder(newOrder);
       localStorage.setItem("order", JSON.stringify(newOrder));
       router.push("/checkout/payment");
-
-      console.log(response);
     } catch (error) {
       console.log(error);
     } finally {

@@ -15,7 +15,6 @@ import { useToast } from "@/hooks/use-toast";
 const CheckoutPage = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
   const { toast } = useToast();
-
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
@@ -49,6 +48,7 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       setLoading(false);
       return;
     }
+
     const newOrder: ISanityOrder = {
       products: order.products.map((item) => ({
         _key: item.id,
@@ -80,34 +80,92 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       },
     };
 
-    // Send the request to create an order
-    const createOrder = await axios.post("/api/create-order", newOrder);
+    try {
+      // Send the request to create an order
+      const createOrder = await axios.post("/api/create-order", newOrder);
 
-    if (createOrder.status !== 200) {
-      toast({
-        description: "Failed to create order",
-        color: "red",
+      if (createOrder.status !== 200) {
+        toast({
+          description: "Failed to create order",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Send email to the user after successful order creation
+      // Send email to the user after successful order creation
+      const orderDetailsHTML = `
+  <h2>Order Confirmation</h2>
+  <p>Thank you for your order! Here are the details:</p>
+  <h4>Shipping Address:</h4>
+  <p>${order.address.firstName} ${order.address.lastName}<br>
+  ${order.address.address}, ${order.address.city}, ${order.address.state}, ${order.address.country}<br>
+  Postal Code: ${order.address.postalCode}<br>
+  Phone: ${order.address.phoneNumber}</p>
+
+  <h4>Products Ordered:</h4>
+  <ul>
+    ${order.products
+      .map(
+        (item) => `
+      <li>
+        <strong>${item.name}</strong> - ${item.quantity} x $${item.price} = $${
+          item.quantity * item.price
+        }
+      </li>
+    `
+      )
+      .join("")}
+  </ul>
+
+  <h4>Payment Summary:</h4>
+  <p>Subtotal: $${order.subTotal}</p>
+  <p>Shipping: $${order.shippingAmount}</p>
+  <p><strong>Total: $${order.shippingAmount + order.subTotal}</strong></p>
+
+  <p>Payment Method: stripe - Status: paid </p>
+
+  <p>We will notify you when your order is shipped. Thank you for shopping with us!</p>
+`;
+
+      const emailResponse = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: order.address.email,
+          subject: "Order Confirmation",
+          text: `Thank you for your order! Your order ID is ${createOrder.data.orderId}.`,
+          html: orderDetailsHTML, // Send HTML-formatted order details
+        }),
       });
+
+      if (!emailResponse.ok) {
+        console.error("Failed to send email");
+      }
+
+      // Confirm the payment with Stripe
+      const { error } = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          return_url: `${process.env.NEXT_PUBLIC_URL as string}/checkout/success?amount=${amount}`,
+        },
+      });
+
+      if (error) {
+        setErrorMessage(error.message);
+      }
+    } catch (error) {
+      console.error("Error during order creation or email sending:", error);
+      toast({
+        description: "An error occurred. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      clientSecret,
-      confirmParams: {
-        return_url: `${process.env.NEXT_PUBLIC_URL as string}/checkout/success?amount=${amount}`,
-      },
-    });
-
-    if (error) {
-      // This point is only reached if there's an immediate error when
-      // confirming the payment. Show the error to your customer (for example, payment details incomplete)
-      setErrorMessage(error.message);
-    } else {
-      // The payment UI automatically closes with a success animation.
-      // Your customer is redirected to your `return_url`.
-    }
-
-    setLoading(false);
   };
 
   if (!clientSecret || !stripe || !elements) {
