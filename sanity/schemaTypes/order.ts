@@ -179,7 +179,7 @@ export const orderType = defineType({
         }),
         defineField({
           name: "labelPdf",
-          type: "file",
+          type: "string",
           title: "Shipping Label PDF",
           validation: (Rule) =>
             Rule.required().error("Shipping label is required"),

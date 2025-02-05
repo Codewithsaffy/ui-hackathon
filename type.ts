@@ -101,6 +101,7 @@ export interface IOrder {
   trackingId: string;
   rates: Rate[];
   LabelPDF: string;
+  carrierName: string;
   userId: string;
   orderDate: string;
   orderStatus: string;
@@ -108,9 +109,12 @@ export interface IOrder {
   _id: string;
   paymentMethod: "stripe" | "COD";
 }
-export interface IOrderType  {
+export interface ISanityOrder {
   products: {
-    product: string; // Product ID (reference)
+    product: {
+      _type: "reference";
+      _ref: string;
+    }; // Product ID (reference)
     quantity: number;
   }[];
   address: {
@@ -125,7 +129,7 @@ export interface IOrderType  {
   };
   payment: {
     totalAmount: number;
-    method: "stripe" | "cash_on_delivery";
+    method: "stripe" | "COD";
     status: "pending" | "success";
   };
   userId: string;
@@ -136,4 +140,4 @@ export interface IOrderType  {
     shipmentRate: number;
     status: "pending" | "shipped" | "in_transit" | "delivered" | "returned";
   };
-};
+}

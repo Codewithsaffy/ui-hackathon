@@ -1,16 +1,33 @@
-import { uploadImage } from "@/lib/helper/uploadImage";
-import { IOrder } from "@/type";
+import { client } from "@/sanity/lib/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { order }: { order: IOrder } = await req.json();
-  if (!order) {
-    return NextResponse.json(
-      { message: " Order is required" },
-      { status: 400 }
-    );
+  try {
+    const order = await req.json();
+
+    // Validate order structure
+    if (
+      !order.products ||
+      !order.address ||
+      !order.payment ||
+      !order.userId ||
+      !order.shipment
+    ) {
+      return NextResponse.json(
+        { success: false, error: "Missing required order fields" },
+        { status: 400 }
+      );
+    }
+
+    // Create order in Sanity
+    const createdOrder = await client.create({
+      _type: "order",
+      ...order,
+    });
+
+    return NextResponse.json({ success: true, order: createdOrder });
+  } catch (error) {
+    console.error("Error creating order:", error);
+    return NextResponse.json({ success: false, error: error }, { status: 500 });
   }
-  const labelImage = await uploadImage(order.LabelPDF)
-  return NextResponse.json({ labelImage });
-//   const createOrder = client.create(order);
 }

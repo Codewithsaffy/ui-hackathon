@@ -4,25 +4,31 @@ import OrderContext from "./OrderContext";
 import { IOrder } from "@/type";
 import { useShoppingCart } from "use-shopping-cart";
 import { useUser } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
 
-const OrdetContextProvider = ({ children }: { children: ReactNode }) => {
-  const [order, setOrder] = useState<IOrder>({} as IOrder);
+const OrderContextProvider = ({ children }: { children: ReactNode }) => {
   const { cartDetails } = useShoppingCart();
   const { user } = useUser();
+  const [order, setOrder] = useState<IOrder>(() => {
+    if (typeof window !== "undefined") {
+      const savedOrder = localStorage.getItem("order");
+      return savedOrder ? JSON.parse(savedOrder) : { products: [], userId: "" };
+    }
+    return { products: [], userId: "" };
+  });
 
   useEffect(() => {
-    setOrder({
-      ...order,
-      products: Object.values(cartDetails || {}),
-      userId: user?.id as string,
-    });
+    if (cartDetails || user?.id) {
+      setOrder((prevOrder) => ({
+        ...prevOrder,
+        products: Object.values(cartDetails || {}),
+        userId: user?.id || "",
+      }));
+    }
   }, [cartDetails, user?.id]);
 
   useEffect(() => {
-    const order = localStorage.getItem("order");
-    setOrder(JSON.parse(order || "{}"));
-  }, []);
+    localStorage.setItem("order", JSON.stringify(order));
+  }, [order]);
 
   return (
     <OrderContext.Provider value={{ order, setOrder }}>
@@ -31,4 +37,4 @@ const OrdetContextProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default OrdetContextProvider;
+export default OrderContextProvider;

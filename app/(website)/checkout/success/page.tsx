@@ -4,7 +4,9 @@ import { Suspense, useContext, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { verifyPaymentIntent } from "@/lib/actions/verfiyPayment";
 import { Loader2 } from "lucide-react";
+import { useShoppingCart } from "use-shopping-cart";
 import OrderContext from "@/provider/order/OrderContext";
+import { IOrder } from "@/type";
 
 function SuccessContent() {
   const searchParams = useSearchParams();
@@ -12,8 +14,9 @@ function SuccessContent() {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
+  const { clearCart } = useShoppingCart();
+  const { setOrder } = useContext(OrderContext);
   const [amount, setAmount] = useState<number | null>(null);
-  const { order } = useContext(OrderContext);
 
   useEffect(() => {
     const verifyPayment = async () => {
@@ -23,10 +26,14 @@ function SuccessContent() {
       }
 
       try {
-        console.log("order", order);
         const { amount, status } = await verifyPaymentIntent(paymentIntentId);
-
-        if (status !== "succeeded") throw new Error("Payment not completed");
+        if (status !== "succeeded") {
+          setStatus("error");
+          return;
+        }
+        setOrder({} as IOrder);
+        clearCart();
+        localStorage.removeItem("order");
 
         setAmount(amount);
         setStatus("success");
@@ -37,7 +44,7 @@ function SuccessContent() {
     };
 
     verifyPayment();
-  }, [paymentIntentId, order]);
+  }, []);
 
   if (status === "error") {
     return (

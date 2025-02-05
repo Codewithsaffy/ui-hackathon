@@ -55,10 +55,11 @@ const Shipment = () => {
         trackingId: response.data.labelId,
         shippingAmount: response.data.shipmentCost?.amount,
         LabelPDF: response.data.labelDownload?.href,
+        carrierName: response.data.carrierCode,
       };
       setOrder(newOrder);
-
       localStorage.setItem("order", JSON.stringify(newOrder));
+      router.push("/checkout/payment");
 
       console.log(response);
     } catch (error) {

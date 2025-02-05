@@ -1,20 +1,26 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   useStripe,
   useElements,
   PaymentElement,
 } from "@stripe/react-stripe-js";
 import convertToSubcurrency from "@/lib/helper/convertToSubcurrency";
+import OrderContext from "@/provider/order/OrderContext";
+import { ISanityOrder } from "@/type";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 const CheckoutPage = ({ amount }: { amount: number }) => {
   const stripe = useStripe();
+  const { toast } = useToast();
+
   const elements = useElements();
   const [errorMessage, setErrorMessage] = useState<string>();
   const [clientSecret, setClientSecret] = useState("");
   const [loading, setLoading] = useState(false);
- 
+  const { order } = useContext(OrderContext);
 
   useEffect(() => {
     fetch("/api/create-payment-intent", {
@@ -43,6 +49,46 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       setLoading(false);
       return;
     }
+    const newOrder: ISanityOrder = {
+      products: order.products.map((item) => ({
+        _key: item.id,
+        product: { _type: "reference", _ref: item._id },
+        quantity: 1, // Adjust as needed
+      })),
+      address: {
+        email: order.address.email,
+        country: order.address.country,
+        phone: order.address.phoneNumber,
+        name: `${order.address.firstName} ${order.address.lastName}`,
+        postalCode: order.address.postalCode,
+        state: order.address.state,
+        city: order.address.city,
+        street: order.address.address,
+      },
+      payment: {
+        totalAmount: order.shippingAmount + order.subTotal,
+        method: "stripe",
+        status: "pending",
+      },
+      userId: order.userId,
+      shipment: {
+        carrierName: order.carrierName,
+        labelPdf: order.LabelPDF,
+        trackingId: order.trackingId,
+        shipmentRate: order.shippingAmount,
+        status: "pending",
+      },
+    };
+
+    // Send the request to create an order
+    const createOrder = await axios.post("/api/create-order", newOrder);
+
+    if (createOrder.status !== 200) {
+      toast({
+        description: "Failed to create order",
+        color: "red",
+      });
+    }
 
     const { error } = await stripe.confirmPayment({
       elements,
@@ -57,7 +103,6 @@ const CheckoutPage = ({ amount }: { amount: number }) => {
       // confirming the payment. Show the error to your customer (for example, payment details incomplete)
       setErrorMessage(error.message);
     } else {
-    
       // The payment UI automatically closes with a success animation.
       // Your customer is redirected to your `return_url`.
     }
