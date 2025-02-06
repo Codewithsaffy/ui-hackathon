@@ -14,6 +14,7 @@ export const getProduct = async (
       throw new Error(`Failed to fetch products: ${res.status}`);
     }
     const data = await res.json();
+
     return data.products || [];
   } catch (error) {
     console.error("Error fetching product data:", error);

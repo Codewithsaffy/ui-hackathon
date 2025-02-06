@@ -1,8 +1,9 @@
 "use client";
 import CheckoutButton from "@/components/buttons/CheckoutButton";
 import SubHero from "@/components/small/SubHero";
+import { client } from "@/sanity/lib/client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { useShoppingCart } from "use-shopping-cart";
 
 const CartPage = () => {
@@ -15,6 +16,14 @@ const CartPage = () => {
     removeItem,
     cartCount,
   } = useShoppingCart();
+  useEffect(() => {
+    const checkSanityData = async () => {
+      const query = '*[_type == "product"]';
+      const res = await client.fetch(query);
+      console.log(res);
+    };
+    checkSanityData();
+  });
 
   // If cart is empty, show a message
   if (cartCount === 0) {
