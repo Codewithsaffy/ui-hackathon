@@ -29,6 +29,7 @@ import { LoaderCircle } from "lucide-react";
 import { useContext, useState } from "react";
 import OrderContext from "@/provider/order/OrderContext";
 import { Address } from "@/type";
+import { useUser } from "@clerk/nextjs";
 
 const FormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -53,6 +54,7 @@ export default function AddressComp() {
   const { toast } = useToast();
   const { cartDetails, totalPrice } = useShoppingCart();
   const { order, setOrder } = useContext(OrderContext);
+  const { user } = useUser();
   // ========================
 
   const orderProducts = Object.values(cartDetails || {});
@@ -76,6 +78,7 @@ export default function AddressComp() {
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
     setLoading(true);
+
     const shipeToAddress: Address = {
       name: `${formData.firstName} ${formData.lastName}`,
       phone: formData.phoneNumber,
@@ -107,6 +110,8 @@ export default function AddressComp() {
           address: formData,
           rates: response.data.rates,
           subTotal: totalPrice as number,
+          userId: user?.id as string,
+          products: Object.values(cartDetails || {}),
         });
         localStorage.setItem(
           "order",
@@ -294,7 +299,7 @@ export default function AddressComp() {
               <LoaderCircle className="animate-spin" />
             ) : (
               <span>{order.address ? "Update" : "Continue to shipping"}</span>
-            ) }
+            )}
           </Button>
         </form>
       </Form>
