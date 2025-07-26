@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FaArrowRight, FaSpinner } from "react-icons/fa";
 import { AnimatePresence, motion } from "motion/react";
 import MarkdownRenderer from "../ui/Markdown";
+import Link from "next/link";
 
 interface IAgentOutput {
   products:
@@ -127,7 +128,7 @@ const Chatbot = () => {
                       <div className="w-full flex gap-4 mt-4 flex-col">
                         {c.content.products.map((item) => {
                           return (
-                            <div
+                            <Link href={`/product/${item._id}`}
                               key={item._id}
                               className="flex items-center h-28 border  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-200"
                             >
@@ -165,7 +166,7 @@ const Chatbot = () => {
                                   </span>
                                 </div>
                               </div>
-                            </div>
+                            </Link>
                           );
                         })}
                       </div>
