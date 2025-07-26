@@ -9,10 +9,10 @@ import Unique from "@/components/sections/home/Unique";
 import { getProduct } from "@/lib/helper/getProduct";
 
 export default async function Home() {
+
   const featured = await getProduct("featured");
   const latest = await getProduct("latest");
   const trending = await getProduct("trending");
-  console.log(featured, latest, trending);
   return (
     <main className="overflow-x-hidden">
       <Hero />

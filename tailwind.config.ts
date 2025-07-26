@@ -1,4 +1,7 @@
 import type { Config } from "tailwindcss";
+import scrollbar from "tailwind-scrollbar"
+import scrollbarHidden from "tailwind-scrollbar-hide"
+import typography from "@tailwindcss/typography"
 
 const config: Config = {
   content: [
@@ -63,6 +66,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    scrollbar,
+    scrollbarHidden,
+    typography
+  ],
 };
 export default config;

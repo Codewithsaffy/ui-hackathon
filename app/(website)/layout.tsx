@@ -7,6 +7,7 @@ import StripeProvider from "@/provider/CartProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import WishlistContextProvider from "@/provider/wishlistContextProvider";
 import { Toaster } from "@/components/ui/toaster"
+import Chatbot from "@/components/chatbot/page";
 
 
 export const metadata: Metadata = {
@@ -39,6 +40,7 @@ export default function RootLayout({
           <StripeProvider>
               <Header />
               {children}
+              <Chatbot/>
               <Toaster/>
               <Footer />
           </StripeProvider>

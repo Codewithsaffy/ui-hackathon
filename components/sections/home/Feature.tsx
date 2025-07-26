@@ -4,7 +4,6 @@ import FeatureCard from "../../cards/FeatureCard";
 import { ProductData } from "@/type";
 
 const Feature = ({ cardData }: { cardData: ProductData[] }) => {
-  console.log(cardData)
   return (
     <section className="container py-10  jon flex flex-col gap-8 items-center">
       {/* Heading */}
